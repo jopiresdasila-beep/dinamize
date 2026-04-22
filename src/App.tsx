@@ -502,23 +502,25 @@ export default function App() {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Using Formspree to handle the email sending for the user
-    // The user can later verify the email at formspree.io
+    // Integrando disparo para o Netlify Forms
     try {
       const form = e.target as HTMLFormElement;
       const data = new FormData(form);
       
-      await fetch('https://formspree.io/f/dinamizemarketing@gmail.com', {
+      // Oculto obrigatório para que o SPAs do React enviem pro Netlify corretamente
+      data.append('form-name', 'contato');
+      
+      await fetch('/', {
         method: 'POST',
-        body: data,
+        body: new URLSearchParams(data as any).toString(),
         headers: {
-          'Accept': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
       
       setIsSubmitted(true);
     } catch (error) {
-      // Even if it fails, we show success to the user for better UX in this environment
+      // Mesmo em erro, avançamos a tela por padrão
       setIsSubmitted(true);
     }
   };
@@ -647,12 +649,15 @@ export default function App() {
               ) : (
                 <motion.form 
                   key="form-steps"
+                  name="contato"
+                  data-netlify="true"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   onSubmit={formStep === 5 ? handleFormSubmit : (e) => { e.preventDefault(); nextStep(); }}
                   className="flex flex-col gap-6 pointer-events-auto bg-slate-900/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl w-full text-left max-w-md"
                 >
+                  <input type="hidden" name="form-name" value="contato" />
                   <AnimatePresence mode="wait">
                     {formStep === 1 && (
                       <motion.div 
