@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --color-brand: #3b82f6;
+  --color-brand-glow: rgba(59, 130, 246, 0.2);
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+}
+
+@layer base {
+  html, body {
+    @apply m-0 p-0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-slate-950 text-white overflow-x-hidden;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-400;
+}
+
+.immersive-card {
+  @apply bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl;
+}
+
+.text-glow {
+  text-shadow: 0 0 30px var(--color-brand-glow);
+}
