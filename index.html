@@ -6,6 +6,18 @@
     <title>My Google AI Studio App</title>
   </head>
   <body>
+    <!-- 
+      Este formulário oculto é EXTREMAMENTE NECESSÁRIO para sites React (SPA).
+      Os robôs do Netlify precisam ler esse HTML puro na hora do deploy para 
+      registrar o formulário "contato" no painel. Depois disso, o envio por Javascript funciona.
+    -->
+    <form name="contato" data-netlify="true" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="store" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
