@@ -199,11 +199,11 @@ function HeroCover({ onPrimaryClick }: { onPrimaryClick: () => void }) {
       {/* Full Background Image Replacement */}
       <div className="relative w-full flex-1 pointer-events-none z-0 flex items-center justify-center overflow-hidden min-h-0 bg-[#03155b]">
         <picture className="absolute inset-0 w-full h-full block">
-          <source media="(min-width: 768px)" srcSet="https://i.ibb.co/Fbdxv9f4/Chat-GPT-Image-28-de-abr-de-2026-21-02-36.webp" />
+          <source media="(min-width: 768px)" srcSet="https://i.ibb.co/23WNyS7T/Design-sem-nome-1.jpg" />
           <img 
             src="https://i.ibb.co/DfYMjcGr/CAPA-mobile-dinamize.jpg" 
             alt="Dinamize Marketing - Estratégia 10P" 
-            className="w-full h-full object-cover object-center pointer-events-none"
+            className="w-full h-full object-cover object-top md:object-center pointer-events-none"
             referrerPolicy="no-referrer"
           />
         </picture>
