@@ -25,48 +25,91 @@ export default function Marketing360Section() {
   const [selectedService, setSelectedService] = useState<number | null>(null);
 
   return (
-    <section className="py-24 px-6 md:px-10 relative z-10 overflow-hidden" id="metodo">
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
+    <section className="py-12 px-6 md:px-10 relative z-10 overflow-hidden bg-[#F8FAFC]" id="metodo">
+      {/* Background Decor (Clean, Modern, Technological Abstract Industrial) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Isometric Grid Base */}
+        <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#0F172A 1px, transparent 1px), linear-gradient(to right, #0F172A 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+        
+        {/* Abstract Modular Blocks/Bars */}
+        <motion.div 
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] right-[5%] w-64 h-32 border border-slate-200/60 rounded-[2rem] bg-slate-50/50 backdrop-blur-sm -rotate-6 hidden md:block"
+        >
+          <div className="absolute top-4 left-4 w-12 h-1 bg-brand/20 rounded-full" />
+          <div className="absolute bottom-4 right-4 w-20 h-1 bg-brand/10 rounded-full" />
+        </motion.div>
+
+        <motion.div 
+          animate={{ y: [0, 15, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-slate-200/80 rounded-[2.5rem] bg-white/40 backdrop-blur-md rotate-12 flex flex-col justify-between p-6 shadow-[0_10px_40px_rgba(59,130,246,0.03)] hidden md:flex"
+        >
+          <div className="w-8 h-8 rounded-lg bg-brand/10 border border-brand/20" />
+          <div className="w-full flex gap-2">
+            <div className="flex-1 h-1.5 bg-slate-200 rounded-full" />
+            <div className="w-4 h-1.5 bg-brand/30 rounded-full" />
+          </div>
+        </motion.div>
+
+        <motion.div 
+          animate={{ x: [0, 30, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[40%] left-[-2%] w-24 h-64 border border-brand/10 rounded-[1.5rem] bg-gradient-to-b from-brand/[0.02] to-transparent hidden lg:block"
+        />
+
+        {/* Soft Gradients */}
+        <div className="absolute top-0 right-0 w-full md:w-3/4 h-[600px] bg-gradient-to-bl from-blue-100/50 via-transparent to-transparent opacity-80 rounded-bl-full" />
+        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
         
         {/* Header Content */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10 md:mb-16 max-w-4xl relative z-20"
+          className="text-center mb-10 md:mb-16 max-w-4xl"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-bold tracking-widest uppercase mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/5 border border-brand/20 text-brand text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
             Ecossistema Completo
           </div>
           
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tighter italic skew-x-[-2deg] text-gradient">
-            MARKETING 360º +<br/>ESTRATÉGIA 10P
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tighter italic skew-x-[-2deg] text-slate-900">
+            NOSSA ATUAÇÃO:<br/>SERVIÇOS 360º
           </h2>
           
-          <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-            O <strong className="text-white font-bold">Marketing 360º</strong> garante a amplitude da nossa atuação: sua marca com presença de alto nível em todos os canais digitais. Já a <strong className="text-brand font-bold drop-shadow-[0_0_10px_rgba(59,130,246,0.4)]">Estratégia 10P</strong> é a nossa base metodológica sólida, direcionando cada ação para um único propósito: gerar resultados reais e previsíveis.
+          <p className="text-slate-600 text-lg md:text-xl leading-[1.6] max-w-3xl mx-auto font-medium">
+            O <strong className="text-slate-900 font-bold">Marketing 360º</strong> garante a amplitude da nossa atuação: sua marca com presença de alto nível em todos os canais digitais. Já a <strong className="text-brand font-bold">Estratégia 10P</strong> é a nossa base metodológica sólida, direcionando cada ação para um único propósito: gerar resultados reais e previsíveis.
           </p>
         </motion.div>
 
         {/* Unified Responsive Grid (HTML Compatible / Document Flow) */}
-        <div className="w-full mt-10 md:mt-16 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="w-full mt-10 md:mt-16 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
           
           {/* Main 360 Hub Card (Spans 2 columns on desktop/tablet) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="md:col-span-2 bg-gradient-to-br from-slate-900 to-[#0B1120] p-8 md:p-12 rounded-[2rem] border border-brand/20 text-left relative overflow-hidden flex flex-col justify-center shadow-[0_0_40px_rgba(59,130,246,0.1)] group"
+            className="md:col-span-2 bg-gradient-to-br from-white to-[#F1F5F9] p-8 md:p-12 rounded-[2rem] border border-slate-200 text-left relative overflow-hidden flex flex-col justify-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:shadow-[0_20px_40px_rgb(59,130,246,0.08)] transition-all duration-500"
           >
-            <div className="absolute inset-0 bg-brand/5 blur-[50px] animate-pulse" />
-            <h3 className="text-6xl md:text-8xl font-black text-white font-display tracking-tighter drop-shadow-2xl relative z-10 flex items-start">
+            <div className="absolute inset-0 bg-brand/5 blur-[50px] animate-pulse opacity-50" />
+            
+            {/* Architectural decorative line */}
+            <div className="absolute top-0 right-12 w-px h-full bg-gradient-to-b from-transparent via-slate-200 to-transparent opacity-50" />
+            <div className="absolute top-12 right-0 w-full h-px bg-gradient-to-l from-transparent via-slate-200 to-transparent opacity-50" />
+
+            <h3 className="text-6xl md:text-8xl font-black text-slate-900 font-display tracking-tighter relative z-10 flex items-start drop-shadow-sm">
               360<span className="text-brand text-4xl md:text-6xl mt-1.5 md:mt-2">º</span>
             </h3>
-            <p className="text-white font-bold uppercase tracking-[0.2em] text-sm md:text-lg mt-2 mb-1 relative z-10">Digital Solutions</p>
-            <div className="h-px w-24 md:w-32 bg-gradient-to-r from-brand to-transparent my-4 relative z-10" />
-            <p className="text-slate-400 text-xs md:text-sm uppercase tracking-widest font-semibold relative z-10">
-              Powered by <span className="text-brand">10P™</span>
+            <p className="text-brand font-bold uppercase tracking-[0.2em] text-sm md:text-lg mt-2 mb-1 relative z-10">Digital Solutions</p>
+            <div className="h-px w-24 md:w-32 bg-gradient-to-r from-brand to-transparent my-4 relative z-10 opacity-70" />
+            <p className="text-slate-500 text-xs md:text-sm uppercase tracking-widest font-semibold relative z-10">
+              Powered by <span className="text-brand font-bold">10P™</span>
             </p>
           </motion.div>
 
@@ -79,25 +122,28 @@ export default function Marketing360Section() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               onClick={() => setSelectedService(i)}
-              className="bg-[#0B1120] border border-slate-800/70 hover:border-brand/40 rounded-[2rem] flex flex-col items-start text-left p-6 md:p-7 shadow-lg w-full transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:-translate-y-1 group cursor-pointer"
+              className="bg-white/80 backdrop-blur-md border border-slate-200 hover:border-brand/30 rounded-[2rem] flex flex-col items-start text-left p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] w-full transition-all duration-300 hover:shadow-[0_15px_35px_rgba(59,130,246,0.08)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
             >
-              <div className="flex items-center justify-between w-full mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-slate-700/80 to-slate-800/80 group-hover:from-brand/20 group-hover:to-brand/5 transition-colors rounded-2xl flex items-center justify-center shrink-0 border border-slate-600/30 group-hover:border-brand/40 shadow-inner">
-                    <service.icon className="w-6 h-6 md:w-7 md:h-7 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] group-hover:text-brand group-hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.6)] transition-colors" strokeWidth={2} />
+              {/* Subtle hover gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-brand/0 to-brand/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div className="flex items-center justify-between w-full mb-5 relative z-10">
+                <div className="flex flex-col items-start gap-4 w-full">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-50 group-hover:bg-brand/5 border border-slate-100 group-hover:border-brand/20 transition-colors rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
+                    <service.icon className="w-5 h-5 md:w-6 md:h-6 text-brand stroke-[2.5] opacity-80 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <span className="text-white text-[16px] md:text-lg font-black whitespace-pre-line leading-tight">
+                  <h4 className="text-slate-900 text-base md:text-lg font-bold whitespace-pre-line leading-tight tracking-tight">
                     {service.title}
-                  </span>
+                  </h4>
                 </div>
               </div>
               
-              <div className="w-full mt-1 flex-1 flex flex-col justify-between">
-                <span className="text-slate-300 text-[14px] md:text-[15px] font-medium leading-[1.5] block mb-4">
+              <div className="w-full mt-1 flex-1 flex flex-col justify-between relative z-10">
+                <span className="text-slate-500 text-[13px] md:text-[14px] font-medium leading-[1.6] block mb-5">
                   {service.description}
                 </span>
-                <span className="text-brand text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 mt-auto">
-                  Ler detalhes <span className="group-hover:translate-x-1 transition-transform">→</span>
+                <span className="text-brand text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1 mt-auto">
+                  Detalhes <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </span>
               </div>
             </motion.div>
@@ -117,7 +163,7 @@ export default function Marketing360Section() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedService(null)}
-              className="fixed inset-0 bg-[#020513]/80 backdrop-blur-md"
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
             />
 
             {/* Modal Content */}
@@ -126,20 +172,20 @@ export default function Marketing360Section() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl bg-gradient-to-b from-[#0e162c] to-[#040816] rounded-[2rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col max-h-[90vh]"
+              className="relative w-full max-w-2xl bg-white rounded-[2rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col max-h-[90vh]"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 relative z-10 shrink-0 bg-[#0e162c]">
+              <div className="flex items-center justify-between p-6 sm:p-8 border-b border-slate-100 relative z-10 shrink-0 bg-white/80 backdrop-blur-md">
                 <div className="flex items-center gap-4 sm:gap-6">
                   {(() => {
                     const svc = services[selectedService];
                     const Icon = svc.icon;
                     return (
                       <>
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center shrink-0">
-                          <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-brand drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-brand stroke-[2.5]" />
                         </div>
-                        <h3 id="modal-title" className="text-xl sm:text-2xl md:text-3xl font-black text-white whitespace-pre-line leading-tight">
+                        <h3 id="modal-title" className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 whitespace-pre-line leading-tight tracking-tight">
                           {svc.title}
                         </h3>
                       </>
@@ -148,7 +194,7 @@ export default function Marketing360Section() {
                 </div>
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors absolute top-6 sm:top-8 right-6 sm:right-8"
+                  className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors absolute top-6 sm:top-8 right-6 sm:right-8"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -157,14 +203,13 @@ export default function Marketing360Section() {
 
               {/* Modal Body */}
               <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar relative z-10 flex-1">
-                <p className="text-slate-300 text-base sm:text-lg leading-relaxed whitespace-pre-line">
+                <p className="text-slate-600 text-base sm:text-[17px] leading-[1.7] whitespace-pre-line font-medium">
                   {services[selectedService].details}
                 </p>
               </div>
               
               {/* Decorative glows */}
-              <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-brand/5 to-transparent pointer-events-none" />
-              <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-brand/10 blur-[100px] pointer-events-none rounded-full" />
+              <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-brand/[0.02] to-transparent pointer-events-none" />
             </motion.div>
           </div>
         )}
@@ -172,3 +217,4 @@ export default function Marketing360Section() {
     </section>
   );
 }
+

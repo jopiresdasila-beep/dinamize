@@ -14,6 +14,7 @@ import {
   Instagram,
   Linkedin,
   MessageSquare,
+  MessageCircle,
   ArrowRight,
   ArrowDown,
   MousePointer2,
@@ -24,10 +25,15 @@ import {
   Video,
   ChevronUp,
   Mail,
-  Phone
+  Phone,
+  HardHat,
+  ShoppingCart,
+  Handshake,
+  Cog
 } from "lucide-react";
 import Marketing360Section from "./components/Marketing360Section";
 import Strategy10PSection from "./components/Strategy10PSection";
+import HookStrategySection from "./components/HookStrategySection";
 
 interface Particle {
   id: number;
@@ -72,7 +78,7 @@ function InteractiveReveal() {
       ref={containerRef}
       onPointerMove={handlePointerInteraction}
       onPointerDown={handlePointerInteraction}
-      className="relative h-[300px] md:h-[400px] w-full bg-slate-950/50 border border-white/10 rounded-[2rem] overflow-hidden cursor-crosshair flex items-center justify-center group shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] touch-none"
+      className="relative h-[300px] md:h-[400px] w-full bg-slate-50 border border-slate-200 rounded-[2rem] overflow-hidden flex items-center justify-center group shadow-inner touch-none cursor-crosshair"
     >
       {/* Dynamic Animated Prompt */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-700 opacity-100 group-hover:opacity-10 group-active:opacity-10">
@@ -82,10 +88,10 @@ function InteractiveReveal() {
           className="flex flex-col items-center text-center px-6"
         >
           <MousePointer2 size={40} className="text-brand mb-6 opacity-70 animate-bounce" />
-          <h3 className="font-display text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-300 to-slate-500 uppercase tracking-tighter italic skew-x-[-3deg] drop-shadow-lg">
+          <h3 className="font-display text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-900 via-slate-800 to-slate-600 uppercase tracking-tighter italic skew-x-[-3deg] drop-shadow-sm">
             Deslize ou Toque
           </h3>
-          <p className="text-brand font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] mt-4 font-bold bg-brand/10 border border-brand/20 px-4 py-1.5 rounded-full">
+          <p className="text-brand font-sans text-[10px] md:text-xs uppercase tracking-[0.4em] mt-4 font-bold bg-brand/5 border border-brand/20 px-4 py-1.5 rounded-full shadow-sm">
             Para Revelar o Método
           </p>
         </motion.div>
@@ -109,7 +115,7 @@ function InteractiveReveal() {
             }}
             className="pointer-events-none whitespace-nowrap z-10"
           >
-            <div className="bg-slate-900/90 backdrop-blur-xl border border-brand/40 text-white px-5 py-2 md:px-8 md:py-4 rounded-xl text-sm md:text-xl font-black uppercase tracking-tighter italic shadow-[0_0_40px_rgba(59,130,246,0.3)]">
+            <div className="bg-white/90 backdrop-blur-md border border-brand/20 text-slate-900 px-5 py-2 md:px-8 md:py-4 rounded-xl text-sm md:text-xl font-black uppercase tracking-tighter italic shadow-[0_10px_30px_rgba(59,130,246,0.15)]">
               {p.text}
             </div>
           </motion.div>
@@ -122,21 +128,21 @@ function InteractiveReveal() {
 function MarqueeTape() {
   const phraseGroup = (
     <div className="flex items-center gap-8 px-4 md:gap-12 md:px-6">
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-400">Agência Dinamize</span>
-      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
-      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-white">MÉTODO 10P</span>
-      <div className="w-1 h-1 rounded-full bg-slate-700" />
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-400">Marketing Lojista</span>
-      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
-      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-brand drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">WHATSAPP LOTADO</span>
-      <div className="w-1 h-1 rounded-full bg-slate-700" />
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-400">Tráfego de Elite</span>
-      <div className="w-1 h-1 rounded-full bg-slate-700" />
+      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Agência Dinamize</span>
+      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
+      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-slate-900">MÉTODO 10P</span>
+      <div className="w-1 h-1 rounded-full bg-slate-300" />
+      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Marketing Lojista</span>
+      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
+      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-brand drop-shadow-sm">WHATSAPP LOTADO</span>
+      <div className="w-1 h-1 rounded-full bg-slate-300" />
+      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Tráfego de Elite</span>
+      <div className="w-1 h-1 rounded-full bg-slate-300" />
     </div>
   );
 
   return (
-    <div className="relative z-20 w-[105%] -ml-[2.5%] overflow-hidden bg-slate-900/60 backdrop-blur-xl border-y border-white/5 py-5 shadow-2xl transform -rotate-[1deg]">
+    <div className="relative z-20 w-[105%] -ml-[2.5%] overflow-hidden bg-white/90 backdrop-blur-md border-y border-slate-200 py-5 shadow-sm transform -rotate-[1deg]">
       <motion.div 
         initial={{ x: "0%" }}
         animate={{ x: "-50%" }}
@@ -154,7 +160,7 @@ function MarqueeTape() {
   );
 }
 
-function MarketingTicker() {
+function TickerPhrases() {
   const phrases = [
     "Atenção É O Novo Petróleo",
     "Venda A Solução, Não O Produto",
@@ -164,26 +170,33 @@ function MarketingTicker() {
     "O Ótimo Marketing Vende Sozinho",
     "Pessoas Compram O Seu Porquê"
   ];
-  
   return (
-    <div className="relative w-full shrink-0 overflow-hidden whitespace-nowrap py-4 md:py-5 z-20 bg-[#060a14] flex items-center shadow-lg border-b border-white/5">
+    <>
+      {[...Array(2)].map((_, i) => (
+        <div key={i} className="flex items-center">
+          {phrases.map((phrase, j) => (
+            <div key={j} className="flex items-center">
+               <span className="text-xs sm:text-[13px] md:text-sm font-sans font-bold uppercase tracking-[0.2em] text-white/70 px-6 sm:px-10">
+                 {phrase}
+               </span>
+               <span className="text-brand text-xs md:text-sm flex items-center justify-center -translate-y-[1px]">♦</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+}
+
+function MarketingTicker() {
+  return (
+    <div className="relative w-full shrink-0 overflow-hidden whitespace-nowrap py-4 md:py-5 z-20 bg-slate-50 flex items-center shadow-sm border-b border-slate-200">
       <motion.div 
         className="flex items-center w-max"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
       >
-         {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex items-center">
-              {phrases.map((phrase, j) => (
-                <div key={j} className="flex items-center">
-                   <span className="text-xs sm:text-[13px] md:text-sm font-sans font-bold uppercase tracking-[0.2em] text-slate-400 px-6 sm:px-10">
-                     {phrase}
-                   </span>
-                   <span className="text-blue-600 text-xs md:text-sm flex items-center justify-center -translate-y-[1px]">♦</span>
-                </div>
-              ))}
-            </div>
-         ))}
+         <TickerPhrases />
       </motion.div>
     </div>
   );
@@ -193,26 +206,53 @@ function HeroCover({ onPrimaryClick }: { onPrimaryClick: () => void }) {
   return (
     <section className="relative w-full h-[100dvh] flex flex-col origin-center pointer-events-auto bg-[#03155b] overflow-hidden">
       
-      {/* Marketing Ticker Loop */}
-      <MarketingTicker />
+      {/* Marketing Ticker Loop - Absolute overlay */}
+      <div className="absolute top-0 left-0 w-full z-50 pointer-events-none">
+        <div className="relative w-full overflow-hidden whitespace-nowrap py-3 md:py-5 bg-white/10 backdrop-blur-md flex items-center border-b border-white/10">
+          <motion.div 
+            className="flex items-center w-max"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+          >
+             <TickerPhrases />
+          </motion.div>
+        </div>
+      </div>
       
       {/* Full Background Image Replacement */}
       <div className="relative w-full flex-1 pointer-events-none z-0 flex items-center justify-center overflow-hidden min-h-0 bg-[#03155b]">
+        
+        {/* Abstract Architectural Shapes (Hero) */}
+        <motion.div 
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[15%] left-[5%] w-32 h-64 border border-white/5 rounded-3xl bg-white/[0.02] backdrop-blur-sm -rotate-6 hidden md:block z-10"
+        />
+        <motion.div 
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute top-[20%] right-[10%] w-48 h-32 border-2 border-white/10 rounded-[2rem] bg-transparent rotate-12 hidden lg:flex flex-col gap-3 justify-center items-center z-10"
+        >
+          <div className="w-20 h-1 bg-white/20 rounded-full" />
+          <div className="w-12 h-1 bg-white/20 rounded-full" />
+        </motion.div>
+
         <picture className="absolute inset-0 w-full h-full block">
           <source media="(min-width: 768px)" srcSet="https://i.ibb.co/23WNyS7T/Design-sem-nome-1.jpg" />
           <img 
-            src="https://i.ibb.co/DfYMjcGr/CAPA-mobile-dinamize.jpg" 
+            src="https://i.ibb.co/R4DJ81YD/Tem-marca-boa-que-s-precisa-ser-melhor-vista.jpg" 
             alt="Dinamize Marketing - Estratégia 10P" 
-            className="w-full h-full object-cover object-top md:object-center pointer-events-none"
+            className="w-full h-full object-cover object-top pointer-events-none relative z-20"
             referrerPolicy="no-referrer"
           />
         </picture>
-        {/* Subtle fade at the bottom so it flows smoothly into the background */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#020513] via-[#020513]/60 to-transparent" />
+        {/* Fade at the bottom to blend with background */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#03155b] via-[#03155b]/70 to-transparent z-30" />
       </div>
 
-      <div className="relative z-10 w-full px-4 sm:px-6 text-center flex flex-col items-center pb-8 shrink-0 bg-gradient-to-t from-[#01092b] via-[#03155b]/20 to-transparent pt-10 -mt-2 md:-mt-3">
-        <div className="flex flex-col items-center w-full justify-center lg:max-w-lg max-w-[92vw] sm:max-w-md mx-auto">
+      <div className="relative z-40 w-full px-4 sm:px-6 text-center flex flex-col items-center pb-6 md:pb-10 shrink-0 bg-[#03155b] pt-0 md:pt-6">
+        <div className="absolute inset-x-0 -top-16 h-16 bg-gradient-to-t from-[#03155b] to-transparent z-10 pointer-events-none md:hidden" />
+        <div className="flex flex-col items-center w-full justify-center lg:max-w-lg max-w-[92vw] sm:max-w-md mx-auto relative z-20 -mt-8 md:mt-0">
           <motion.button 
             onClick={onPrimaryClick}
             animate={{ scale: [1, 1.03, 1] }}
@@ -220,7 +260,7 @@ function HeroCover({ onPrimaryClick }: { onPrimaryClick: () => void }) {
               scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
               duration: 0.2
             }}
-            className="group relative py-3.5 sm:py-5 px-3 sm:px-6 w-full bg-[#16a34a] text-white font-black text-[11px] sm:text-[14px] md:text-[16px] uppercase tracking-normal sm:tracking-widest rounded-[16px] md:rounded-[20px] overflow-hidden shadow-[0_15px_30px_rgba(22,163,74,0.3)] transition-all hover:brightness-110 active:scale-95 active:translate-y-1 z-20 flex items-center justify-center gap-2 sm:gap-3 border-b-[5px] md:border-b-[6px] border-[#14532d]"
+            className="group relative py-3.5 sm:py-5 px-3 sm:px-6 w-full bg-[#16a34a] text-white font-black text-[11px] sm:text-[14px] md:text-[16px] uppercase tracking-normal sm:tracking-widest rounded-[16px] md:rounded-[20px] overflow-hidden shadow-[0_15px_30px_rgba(22,163,74,0.3)] transition-all hover:shadow-[0_20px_40px_rgba(22,163,74,0.4)] hover:-translate-y-1 active:scale-95 z-20 flex items-center justify-center gap-2 sm:gap-3 border-b-[5px] md:border-b-[6px] border-[#14532d]"
           >
             {/* Glossy top edge highlight */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none z-10" />
@@ -243,9 +283,19 @@ function HeroCover({ onPrimaryClick }: { onPrimaryClick: () => void }) {
         </div>
 
         {/* Apoio */}
-        <div className="mt-3 sm:mt-5 flex flex-col items-center justify-center gap-2 text-white font-black text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest sm:tracking-widest text-center px-4 max-w-lg">
-          <span className="leading-snug">CLIQUE NO BOTÃO ACIMA PARA FALAR COM NOSSA EQUIPE NO WHATSAPP</span>
+        <div className="mt-3 sm:mt-5 flex flex-col items-center justify-center gap-2 text-slate-400 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest sm:tracking-widest text-center px-4 max-w-lg">
+          <span className="leading-snug text-white drop-shadow-md">Últimas vagas para consultoria estratégica este mês</span>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+           animate={{ y: [0, 8, 0] }}
+           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+           className="mt-4 md:mt-8 flex flex-col items-center justify-center opacity-80"
+        >
+          <span className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-[#16a34a] mb-1 drop-shadow-sm">Explore mais</span>
+          <ArrowDown className="w-4 h-4 md:w-5 md:h-5 text-[#16a34a] drop-shadow-sm" />
+        </motion.div>
       </div>
     </section>
   );
@@ -256,18 +306,18 @@ function ScrollSequenceText() {
     { 
       prefix: "MAIS PEDIDOS NO", 
       highlight: "WHATSAPP", 
-      highlightClass: "text-[12vw] md:text-[8rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/90 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" 
+      highlightClass: "text-[12vw] md:text-[8rem] text-transparent bg-clip-text bg-gradient-to-b from-blue-600 to-blue-400 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
     },
     { 
       prefix: "MAIS CLIENTES NA", 
       highlight: "LOJA", 
-      highlightClass: "text-[13vw] md:text-[8.5rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/90 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]" 
+      highlightClass: "text-[13vw] md:text-[8.5rem] text-transparent bg-clip-text bg-gradient-to-b from-blue-600 to-blue-400 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
     },
     { 
       prefix: "MAIS VENDAS NA", 
       highlight: "SUA REGIÃO", 
-      hClass: "md:scale-110 drop-shadow-[0_0_40px_rgba(59,130,246,0.6)]",
-      highlightClass: "text-[10vw] md:text-[7rem] text-transparent bg-clip-text bg-gradient-to-br from-brand via-blue-400 to-cyan-300" 
+      hClass: "md:scale-110 drop-shadow-[0_0_30px_rgba(59,130,246,0.4)]",
+      highlightClass: "text-[10vw] md:text-[7rem] text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
     }
   ];
 
@@ -281,15 +331,15 @@ function ScrollSequenceText() {
   }, [phrases.length]);
 
   return (
-    <section className="relative w-full bg-slate-950 py-24 md:py-32 flex flex-col items-center justify-center px-6 overflow-hidden min-h-[40vh] md:min-h-[50vh]">
+    <section className="relative w-full bg-white py-12 md:py-16 flex flex-col items-center justify-center px-6 overflow-hidden min-h-[250px] md:min-h-[350px]">
       
       {/* Background Depth/Glow */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="absolute top-[20%] right-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-brand/10 blur-[130px] rounded-full" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-blue-600/10 blur-[100px] rounded-full" />
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-40">
+        <div className="absolute top-[20%] right-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-blue-500/10 blur-[130px] rounded-full" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-blue-500/10 blur-[100px] rounded-full" />
       </div>
 
-      <div className="relative z-10 w-full max-w-5xl text-center flex items-center justify-center h-[200px] sm:h-[250px] md:h-[350px]">
+      <div className="relative z-10 w-full max-w-5xl text-center flex items-center justify-center h-[120px] sm:h-[160px] md:h-[220px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -299,8 +349,8 @@ function ScrollSequenceText() {
             transition={{ duration: 0.6, ease: [0.25, 1, 0.36, 1] }}
             className="absolute w-full flex flex-col items-center justify-center"
           >
-            <h2 className={`font-display flex flex-col items-center justify-center leading-[0.9] md:leading-[0.85] font-black uppercase tracking-tighter text-center w-full ${phrases[currentIndex].hClass || 'drop-shadow-xl'}`}>
-              <span className="text-2xl md:text-[3rem] text-transparent bg-clip-text bg-gradient-to-b from-white/90 to-white/60 mb-1 md:mb-2 text-glow">{phrases[currentIndex].prefix}</span>
+            <h2 className={`font-display flex flex-col items-center justify-center leading-[0.9] md:leading-[0.85] font-black uppercase tracking-tighter text-center w-full ${phrases[currentIndex].hClass || 'drop-shadow-sm'}`}>
+              <span className="text-2xl md:text-[3rem] text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-700 mb-1 md:mb-2">{phrases[currentIndex].prefix}</span>
               <span className={`${phrases[currentIndex].highlightClass} max-w-full block`}>{phrases[currentIndex].highlight}</span>
             </h2>
           </motion.div>
@@ -316,7 +366,35 @@ function CreativeMindSection() {
   
   return (
     <section className="relative w-full bg-[#031be0] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-20 md:pt-32 pb-0 flex flex-col md:flex-row items-center justify-between min-h-[600px] md:min-h-[800px]">
+      
+      {/* Background Decor (Industrial Modular Lines/Dots) */}
+      <div className="absolute inset-x-0 inset-y-0 overflow-hidden pointer-events-none z-0">
+        {/* Fine grid overlay */}
+        <div className="absolute inset-0 z-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at center, #ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+        
+        {/* Architectural Modular Lines */}
+        <motion.div 
+          animate={{ x: [-20, 0, -20] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] right-[-5%] w-[400px] h-px bg-white/20 hidden md:block"
+        />
+        <motion.div 
+          animate={{ x: [20, 0, 20] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] right-[-2%] w-[200px] h-px bg-white/30 hidden md:block"
+        />
+        
+        {/* Floating Geometric Block */}
+        <motion.div 
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[40%] left-[10%] w-16 h-16 border-2 border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm rotate-12 hidden lg:flex items-center justify-center"
+        >
+          <div className="w-4 h-4 bg-white/20 rounded-md" />
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-12 md:pt-20 pb-0 flex flex-col md:flex-row items-center justify-between min-h-[500px] md:min-h-[700px] relative z-10">
         
         {/* Person Image - Positioned on the left/bottom depending on mobile/desktop */}
         <div className="order-2 md:order-1 relative w-full md:w-1/2 flex justify-start items-end self-end h-auto mt-10 md:mt-0 z-10">
@@ -383,6 +461,8 @@ function CreativeMindSection() {
 
 function ShowcaseCarousel() {
   const images = [
+    "https://i.imgur.com/hp5FB7Z.jpg",
+    "https://i.imgur.com/00p0SaB.jpg",
     "https://i.imgur.com/jKVgEjO.jpg",
     "https://i.imgur.com/gbJKCam.jpg",
     "https://i.imgur.com/LGTq89v.jpg",
@@ -391,19 +471,19 @@ function ShowcaseCarousel() {
   ];
 
   return (
-    <section className="py-12 md:py-24 overflow-hidden relative z-10 w-full bg-slate-950">
+    <section className="py-8 md:py-16 overflow-hidden relative z-10 w-full bg-slate-50">
       {/* Decorative Text */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center md:text-left">
-        <h2 className="text-3xl md:text-5xl font-black font-display text-white tracking-tighter uppercase italic skew-x-[-2deg]">
+        <h2 className="text-3xl md:text-5xl font-black font-display text-slate-900 tracking-tighter uppercase italic skew-x-[-2deg]">
           Nosso <span className="text-brand">Portfólio</span>
         </h2>
-        <p className="text-slate-400 font-medium mt-2 max-w-xl text-sm md:text-base">
+        <p className="text-slate-600 font-medium mt-2 max-w-xl text-sm md:text-base">
           Criativos estratégicos e design de alto padrão, desenvolvidos sob medida para o seu segmento.
         </p>
       </div>
 
-      <div className="absolute inset-y-0 left-0 w-8 md:w-32 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-8 md:w-32 bg-gradient-to-l from-slate-950 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-8 md:w-32 bg-gradient-to-r from-slate-50 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-8 md:w-32 bg-gradient-to-l from-slate-50 to-transparent z-20 pointer-events-none" />
       
       <div className="flex w-max">
         <motion.div 
@@ -415,9 +495,9 @@ function ShowcaseCarousel() {
           {[...images, ...images, ...images, ...images].map((img, index) => (
             <div 
               key={index} 
-              className="relative w-[85vw] max-w-[1200px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden shrink-0 shadow-2xl border border-slate-800/50 bg-[#0B1120] group flex items-center justify-center p-0"
+              className="relative w-[85vw] max-w-[1200px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden shrink-0 shadow-lg border border-slate-200 bg-white group flex items-center justify-center p-0"
             >
-              <div className="absolute inset-0 bg-brand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 bg-brand/5 opacity-0 hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay pointer-events-none" />
               <img 
                 src={img} 
                 alt={`Portfólio Dinamize ${index + 1}`} 
@@ -508,16 +588,19 @@ export default function App() {
   }, [scrollY, showBackToTop]);
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-brand selection:text-white relative flex flex-col w-full">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-brand selection:text-white relative flex flex-col w-full">
       {/* Background Decor */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-brand/10 blur-[200px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-900/10 blur-[150px] rounded-full" />
+        <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-brand/5 blur-[200px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-900/5 blur-[150px] rounded-full" />
       </div>
 
       {/* Hero / Cover Section First */}
       <HeroCover onPrimaryClick={handleWhatsAppDirect} />
       
+      {/* Hook Strategy Section (Code + Transparent PNG) */}
+      <HookStrategySection />
+
       {/* Animated Text Section */}
       <ScrollSequenceText />
 
@@ -534,24 +617,24 @@ export default function App() {
       <Strategy10PSection />
 
       {/* CTA Section */}
-      <section className="py-20 md:py-40 px-4 sm:px-6 md:px-10">
+      <section className="py-20 md:py-40 px-4 sm:px-6 md:px-10 bg-white">
         <div className="max-w-4xl mx-auto mb-16 md:mb-20 text-center">
-          <h2 className="font-display text-5xl md:text-7xl font-black mb-6 md:mb-8 leading-[0.85] italic skew-x-[-3deg] uppercase text-white">
+          <h2 className="font-display text-5xl md:text-7xl font-black mb-6 md:mb-8 leading-[0.85] italic skew-x-[-3deg] uppercase text-slate-900">
             O MERCADO PREMIA <br />
-            <span className="text-brand drop-shadow-[0_0_30px_rgba(59,130,246,0.4)]">QUEM AGE RÁPIDO.</span>
+            <span className="text-brand drop-shadow-sm">QUEM AGE RÁPIDO.</span>
           </h2>
-          <p className="text-slate-300 text-xl md:text-2xl font-medium leading-[1.6] max-w-3xl mx-auto">
+          <p className="text-slate-600 text-xl md:text-2xl font-medium leading-[1.6] max-w-3xl mx-auto">
             Cada dia sem um posicionamento de alto padrão é lucro transferido para o seu concorrente.
-            <strong className="text-white font-black block mt-2 text-2xl md:text-3xl tracking-tight">Reserve sua imersão estratégica hoje.</strong>
+            <strong className="text-slate-900 font-black block mt-2 text-2xl md:text-3xl tracking-tight">Reserve sua imersão estratégica hoje.</strong>
           </p>
         </div>
 
-        <div className="max-w-xl mx-auto immersive-card p-6 sm:p-10 md:p-12 text-center border-slate-800 relative overflow-hidden flex flex-col items-center">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand/10 blur-[150px] opacity-20" />
+        <div className="max-w-xl mx-auto bg-white p-6 sm:p-10 md:p-12 text-center shadow-[0_15px_50px_rgba(0,0,0,0.06)] rounded-[2rem] border border-slate-200 relative overflow-hidden flex flex-col items-center">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand/5 blur-[150px]" />
           
           <div className="relative z-10 w-full mb-8">
-            <h3 className="text-white text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Reserve sua Vaga</h3>
-            <p className="text-slate-400 text-sm md:text-base">Preencha rápido e vamos dar o start na execução dos seus projetos.</p>
+            <h3 className="text-slate-900 text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Reserve sua Vaga</h3>
+            <p className="text-slate-500 text-sm md:text-base">Preencha rápido e vamos dar o start na execução dos seus projetos.</p>
           </div>
 
           <div className="relative z-10 w-full flex flex-col items-center">
@@ -561,13 +644,13 @@ export default function App() {
                   key="success"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-slate-900/80 backdrop-blur-xl p-10 md:p-16 rounded-3xl border border-brand/30 shadow-2xl w-full text-center"
+                  className="bg-white/80 backdrop-blur-xl p-10 md:p-16 rounded-3xl border border-brand/20 shadow-xl w-full text-center"
                 >
-                  <div className="w-20 h-20 bg-brand/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-brand/50">
+                  <div className="w-20 h-20 bg-brand/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-brand/20">
                     <CheckCircle2 size={40} className="text-brand" />
                   </div>
-                  <h3 className="text-white text-3xl font-black uppercase mb-4 tracking-tighter italic">Mensagem Enviada!</h3>
-                  <p className="text-slate-300 text-lg font-medium leading-relaxed">
+                  <h3 className="text-slate-900 text-3xl font-black uppercase mb-4 tracking-tighter italic">Mensagem Enviada!</h3>
+                  <p className="text-slate-600 text-lg font-medium leading-relaxed">
                     Mensagem enviada! <br />
                     <span className="text-brand font-bold">Entraremos em contato em breve.</span>
                   </p>
@@ -577,31 +660,48 @@ export default function App() {
                       setFormStep(0);
                       setFormData({ name: '', store: '', phone: '', email: '' });
                     }}
-                    className="mt-8 text-slate-500 hover:text-white uppercase text-[10px] font-bold tracking-widest underline"
+                    className="mt-8 text-slate-400 hover:text-slate-800 uppercase text-[10px] font-bold tracking-widest underline"
                   >
                     Enviar outra mensagem
                   </button>
                 </motion.div>
               ) : formStep === 0 ? (
-                <motion.button 
-                  key="initial-button"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  onClick={() => setFormStep(1)}
-                  className="group relative py-5 px-4 md:py-6 bg-brand text-white font-black text-[clamp(11px,4vw,18px)] uppercase tracking-tight md:tracking-wider rounded-2xl md:rounded-[24px] overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.05] active:scale-95 w-full flex items-center justify-center gap-2 md:gap-3 whitespace-nowrap"
-                >
-                  {/* Auto-shine sweep effect */}
-                  <motion.div 
-                    animate={{ x: ["-300%", "300%"] }}
-                    transition={{ repeat: Infinity, duration: 1.5, repeatDelay: 2.5, ease: "easeInOut" }}
-                    className="absolute top-0 bottom-0 left-0 w-2/3 sm:w-1/2 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-[25deg] pointer-events-none z-10" 
-                  />
-                  <div className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none z-10" />
-                  
-                  <Target className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative z-20" />
-                  <span className="mt-[2px] relative z-20">ME INSCREVER PARA A VAGA</span>
-                </motion.button>
+                <div className="flex flex-col w-full gap-4">
+                  <motion.button 
+                    key="initial-button"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    onClick={() => setFormStep(1)}
+                    className="group relative py-5 px-4 md:py-6 bg-brand text-white font-black text-[clamp(11px,4vw,18px)] uppercase tracking-tight md:tracking-wider rounded-2xl md:rounded-[24px] overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.05] active:scale-95 w-full flex items-center justify-center gap-2 md:gap-3 whitespace-nowrap"
+                  >
+                    {/* Auto-shine sweep effect */}
+                    <motion.div 
+                      animate={{ x: ["-300%", "300%"] }}
+                      transition={{ repeat: Infinity, duration: 1.5, repeatDelay: 2.5, ease: "easeInOut" }}
+                      className="absolute top-0 bottom-0 left-0 w-2/3 sm:w-1/2 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-[25deg] pointer-events-none z-10" 
+                    />
+                    <div className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none z-10" />
+                    
+                    <Target className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative z-20" />
+                    <span className="mt-[2px] relative z-20">ME INSCREVER PARA A VAGA</span>
+                  </motion.button>
+
+                  <motion.a
+                    href="https://wa.me/559991863273?text=Olá.%20Gostaria%20de%20reservar%20minha%20vaga%20e%20falar%20diretamente%20pelo%20WhatsApp."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="group relative py-5 px-4 md:py-6 bg-green-600 text-white font-black text-[clamp(11px,4vw,18px)] uppercase tracking-tight md:tracking-wider rounded-2xl md:rounded-[24px] overflow-hidden shadow-[0_0_30px_rgba(22,163,74,0.3)] hover:shadow-[0_0_40px_rgba(22,163,74,0.6)] transition-all hover:scale-[1.05] active:scale-95 w-full flex items-center justify-center gap-2 md:gap-3 whitespace-nowrap"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative z-20" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                    <span className="mt-[2px] relative z-20">CHAMAR NO WHATSAPP AGORA</span>
+                  </motion.a>
+                </div>
               ) : (
                 <motion.form 
                   key="form-steps"
@@ -611,7 +711,7 @@ export default function App() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   onSubmit={formStep === 5 ? handleFormSubmit : (e) => { e.preventDefault(); nextStep(); }}
-                  className="flex flex-col gap-6 pointer-events-auto bg-slate-900/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl w-full text-left max-w-md"
+                  className="flex flex-col gap-6 pointer-events-auto bg-white/90 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl w-full text-left max-w-md"
                 >
                   <input type="hidden" name="form-name" value="contato" />
                   <AnimatePresence mode="wait">
@@ -630,7 +730,7 @@ export default function App() {
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
                           placeholder="Digite seu nome" 
-                          className="w-full px-5 py-4 bg-slate-950 border border-slate-800 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-white text-base transition-all"
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
                         />
                       </motion.div>
                     )}
@@ -649,7 +749,7 @@ export default function App() {
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
                           placeholder="seu@email.com" 
-                          className="w-full px-5 py-4 bg-slate-950 border border-slate-800 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-white text-base transition-all"
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
                         />
                       </motion.div>
                     )}
@@ -668,7 +768,7 @@ export default function App() {
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
                           placeholder="(00) 00000-0000" 
-                          className="w-full px-5 py-4 bg-slate-950 border border-slate-800 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-white text-base transition-all"
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
                         />
                       </motion.div>
                     )}
@@ -687,7 +787,7 @@ export default function App() {
                           value={formData.store}
                           onChange={(e) => setFormData({...formData, store: e.target.value})}
                           placeholder="Nome do seu negócio" 
-                          className="w-full px-5 py-4 bg-slate-950 border border-slate-800 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-white text-base transition-all"
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
                         />
                       </motion.div>
                     )}
@@ -697,13 +797,13 @@ export default function App() {
                         initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                         className="text-center py-6"
                       >
-                        <h4 className="text-white text-xl font-bold mb-4">Tudo pronto!</h4>
-                        <p className="text-slate-400 mb-6">Confirme o envio dos dados para nossa equipe.</p>
-                        <div className="bg-slate-950/50 p-4 rounded-xl text-left border border-white/5 mb-6">
-                           <p className="text-xs text-slate-500 mb-1">Nome: <span className="text-white font-bold">{formData.name}</span></p>
-                           <p className="text-xs text-slate-500 mb-1">E-mail: <span className="text-white font-bold">{formData.email}</span></p>
-                           <p className="text-xs text-slate-500 mb-1">WhatsApp: <span className="text-white font-bold">{formData.phone}</span></p>
-                           <p className="text-xs text-slate-500">Loja: <span className="text-white font-bold">{formData.store}</span></p>
+                        <h4 className="text-slate-900 text-xl font-bold mb-4">Tudo pronto!</h4>
+                        <p className="text-slate-600 mb-6">Confirme o envio dos dados para nossa equipe.</p>
+                        <div className="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 mb-6">
+                           <p className="text-xs text-slate-500 mb-1">Nome: <span className="text-slate-900 font-bold">{formData.name}</span></p>
+                           <p className="text-xs text-slate-500 mb-1">E-mail: <span className="text-slate-900 font-bold">{formData.email}</span></p>
+                           <p className="text-xs text-slate-500 mb-1">WhatsApp: <span className="text-slate-900 font-bold">{formData.phone}</span></p>
+                           <p className="text-xs text-slate-500">Loja: <span className="text-slate-900 font-bold">{formData.store}</span></p>
                         </div>
                       </motion.div>
                     )}
@@ -714,7 +814,7 @@ export default function App() {
                       <button 
                         type="button" 
                         onClick={() => setFormStep(prev => prev - 1)}
-                        className="px-6 py-4 border border-slate-700 text-slate-400 rounded-2xl font-bold uppercase text-[10px] tracking-widest hover:bg-slate-800 transition-all"
+                        className="px-6 py-4 border border-slate-200 text-slate-500 rounded-2xl font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all"
                       >
                         Voltar
                       </button>
@@ -731,29 +831,29 @@ export default function App() {
             </AnimatePresence>
             <div className="mt-6 md:mt-8 flex items-center justify-center gap-2 md:gap-3 text-brand font-mono text-[9px] md:text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] bg-red-500/10 p-2 md:p-3 rounded-lg border border-red-500/20 text-red-500">
               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0 drop-shadow-[0_0_8px_rgba(239,68,68,1)]" />
-              <span className="text-center font-black">Últimas 3 vagas para consultoria estratégica este mês</span>
+              <span className="text-center font-black">Últimas vagas para consultoria estratégica este mês</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="pt-12 pb-16 border-t border-white/5 bg-slate-950 px-6">
+      <footer className="pt-12 pb-16 border-t border-slate-200 bg-white px-6">
         <div className="max-w-6xl mx-auto">
           {/* Top Section: Contact Info */}
           <div className="flex justify-center md:justify-start mb-16">
             <div className="flex flex-col items-start">
-              <span className="text-brand text-[9px] font-black uppercase tracking-[0.3em] mb-4 ml-6 opacity-60">Canais de Contato</span>
-              <div className="inline-flex flex-col items-start gap-4 border-l-2 border-brand/30 pl-6 py-2">
-                <a href="mailto:dinamizemarketing@gmail.com" className="flex items-center gap-3 text-slate-400 hover:text-brand transition-colors group">
+              <span className="text-brand text-[9px] font-black uppercase tracking-[0.3em] mb-4 ml-6 opacity-80">Canais de Contato</span>
+              <div className="inline-flex flex-col items-start gap-4 border-l-2 border-brand/20 pl-6 py-2">
+                <a href="mailto:dinamizemarketing@gmail.com" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
                   <Mail size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
                   <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">dinamizemarketing@gmail.com</span>
                 </a>
-                <a href="https://wa.me/559991863273" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-400 hover:text-brand transition-colors group">
+                <a href="https://wa.me/559991863273" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
                   <Phone size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
                   <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">(99) 9186-3273</span>
                 </a>
-                <a href="https://www.instagram.com/dinamize_7?igsh=N2kwZG1heTY0YTIx" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-400 hover:text-brand transition-colors group">
+                <a href="https://www.instagram.com/dinamize_7?igsh=N2kwZG1heTY0YTIx" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
                   <Instagram size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
                   <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">@dinamize_7</span>
                 </a>
@@ -761,27 +861,20 @@ export default function App() {
             </div>
           </div>
 
-          {/* Bottom Section: Logo + Copyright | Links */}
-          <div className="pt-10 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between gap-8">
+          {/* Bottom Section: Copyright | Links */}
+          <div className="pt-10 border-t border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="flex flex-row items-center gap-3 md:gap-6">
-              <img 
-                src="https://i.imgur.com/ybbaDE9.png" 
-                alt="Dinamize Logo" 
-                className="h-8 md:h-12 object-contain shrink-0"
-                referrerPolicy="no-referrer"
-              />
-              <div className="h-6 md:h-8 w-px bg-slate-800 shrink-0" />
               <div className="text-left">
-                <p className="text-slate-600 text-[8px] sm:text-[10px] uppercase font-bold tracking-[0.1em] sm:tracking-[0.2em] leading-tight">
+                <p className="text-slate-500 text-[8px] sm:text-[10px] uppercase font-bold tracking-[0.1em] sm:tracking-[0.2em] leading-tight">
                   © 2026 DINAMIZE (D7) • TODOS OS DIREITOS RESERVADOS <br className="hidden sm:block" />
-                  <span className="text-slate-700 sm:ml-1">MARKETING ESTRATÉGICO</span>
+                  <span className="text-slate-900 sm:ml-1">MARKETING ESTRATÉGICO</span>
                 </p>
               </div>
             </div>
 
             <div className="flex gap-8">
-              <a href="#" className="text-slate-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Termos</a>
-              <a href="#" className="text-slate-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Privacidade</a>
+              <a href="#" className="text-slate-500 hover:text-brand transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Termos</a>
+              <a href="#" className="text-slate-500 hover:text-brand transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Privacidade</a>
             </div>
           </div>
         </div>
