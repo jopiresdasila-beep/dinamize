@@ -1,915 +1,364 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { motion, useScroll } from 'motion/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Loader2, CheckCircle2 } from 'lucide-react';
+import Marketing360Section from './components/Marketing360Section';
 
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring as motionUseSpring } from "motion/react";
-import { 
-  CheckCircle2, 
-  Target, 
-  TrendingUp, 
-  Map, 
-  DollarSign, 
-  Instagram,
-  Linkedin,
-  MessageSquare,
-  MessageCircle,
-  ArrowRight,
-  ArrowDown,
-  MousePointer2,
-  Megaphone,
-  Layout,
-  PenTool,
-  Smartphone,
-  Video,
-  ChevronUp,
-  Mail,
-  Phone,
-  HardHat,
-  ShoppingCart,
-  Handshake,
-  Cog
-} from "lucide-react";
-import Marketing360Section from "./components/Marketing360Section";
-import Strategy10PSection from "./components/Strategy10PSection";
-import HookStrategySection from "./components/HookStrategySection";
+gsap.registerPlugin(ScrollTrigger);
 
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  text: string;
-}
-
-const MARKETING_PHRASES = [
-  "ROI Explosivo", "Tráfego Pago", "Método 10P", "Vendas Reais", 
-  "CTR Alto", "Escalabilidade", "Conversão", "WhatsApp Lotado",
-  "Presença Digital", "Marketing Estratégico", "LTV Alto", "CPL Baixo"
-];
-
-function InteractiveReveal() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+const CinematicHeroBackground = ({ src, hookSrc, isMobileImg }: { src: string, hookSrc?: string, isMobileImg?: boolean }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const particleId = useRef(0);
-
-  const handlePointerInteraction = (e: React.PointerEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const newParticle = {
-      id: particleId.current++,
-      x,
-      y,
-      text: MARKETING_PHRASES[Math.floor(Math.random() * MARKETING_PHRASES.length)]
-    };
-
-    setParticles((prev) => [...prev.slice(-8), newParticle]);
-
-    setTimeout(() => {
-      setParticles((prev) => prev.filter(p => p.id !== newParticle.id));
-    }, 1200);
-  };
-
-  return (
-    <div 
-      ref={containerRef}
-      onPointerMove={handlePointerInteraction}
-      onPointerDown={handlePointerInteraction}
-      className="relative h-[300px] md:h-[400px] w-full bg-slate-50 border border-slate-200 rounded-[2rem] overflow-hidden flex items-center justify-center group shadow-inner touch-none cursor-crosshair"
-    >
-      {/* Dynamic Animated Prompt */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-700 opacity-100 group-hover:opacity-10 group-active:opacity-10">
-        <motion.div 
-          animate={{ scale: [1, 1.03, 1], opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center text-center px-6"
-        >
-          <MousePointer2 size={40} className="text-brand mb-6 opacity-70 animate-bounce" />
-          <h3 className="font-display text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-900 via-slate-800 to-slate-600 uppercase tracking-tighter italic skew-x-[-3deg] drop-shadow-sm">
-            Deslize ou Toque
-          </h3>
-          <p className="text-brand font-sans text-[10px] md:text-xs uppercase tracking-[0.4em] mt-4 font-bold bg-brand/5 border border-brand/20 px-4 py-1.5 rounded-full shadow-sm">
-            Para Revelar o Método
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Particles */}
-      <AnimatePresence>
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            initial={{ opacity: 0, scale: 0.5, y: 20, rotate: Math.random() * 20 - 10 }}
-            animate={{ opacity: 1, scale: 1, y: -60, rotate: Math.random() * 10 - 5 }}
-            exit={{ opacity: 0, scale: 1.2, filter: "blur(8px)" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            style={{ 
-              position: 'absolute', 
-              left: p.x, 
-              top: p.y,
-              x: '-50%',
-              y: '-50%'
-            }}
-            className="pointer-events-none whitespace-nowrap z-10"
-          >
-            <div className="bg-white/90 backdrop-blur-md border border-brand/20 text-slate-900 px-5 py-2 md:px-8 md:py-4 rounded-xl text-sm md:text-xl font-black uppercase tracking-tighter italic shadow-[0_10px_30px_rgba(59,130,246,0.15)]">
-              {p.text}
-            </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-function MarqueeTape() {
-  const phraseGroup = (
-    <div className="flex items-center gap-8 px-4 md:gap-12 md:px-6">
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Agência Dinamize</span>
-      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
-      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-slate-900">MÉTODO 10P</span>
-      <div className="w-1 h-1 rounded-full bg-slate-300" />
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Marketing Lojista</span>
-      <div className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
-      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-[0.3em] text-brand drop-shadow-sm">WHATSAPP LOTADO</span>
-      <div className="w-1 h-1 rounded-full bg-slate-300" />
-      <span className="font-display font-light text-[11px] md:text-xs uppercase tracking-[0.3em] text-slate-500">Tráfego de Elite</span>
-      <div className="w-1 h-1 rounded-full bg-slate-300" />
-    </div>
-  );
-
-  return (
-    <div className="relative z-20 w-[105%] -ml-[2.5%] overflow-hidden bg-white/90 backdrop-blur-md border-y border-slate-200 py-5 shadow-sm transform -rotate-[1deg]">
-      <motion.div 
-        initial={{ x: "0%" }}
-        animate={{ x: "-50%" }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-        className="flex whitespace-nowrap w-max"
-      >
-        <div className="flex items-center">
-          {[...Array(6)].map((_, i) => <React.Fragment key={`g1-${i}`}>{phraseGroup}</React.Fragment>)}
-        </div>
-        <div className="flex items-center">
-          {[...Array(6)].map((_, i) => <React.Fragment key={`g2-${i}`}>{phraseGroup}</React.Fragment>)}
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function TickerPhrases() {
-  const phrases = [
-    "Atenção É O Novo Petróleo",
-    "Venda A Solução, Não O Produto",
-    "Transforme Cliques Em Clientes",
-    "Marketing É Construir Confiança",
-    "Dados Superam Achismos",
-    "O Ótimo Marketing Vende Sozinho",
-    "Pessoas Compram O Seu Porquê"
-  ];
-  return (
-    <>
-      {[...Array(2)].map((_, i) => (
-        <div key={i} className="flex items-center">
-          {phrases.map((phrase, j) => (
-            <div key={j} className="flex items-center">
-               <span className="text-xs sm:text-[13px] md:text-sm font-sans font-bold uppercase tracking-[0.2em] text-white/70 px-6 sm:px-10">
-                 {phrase}
-               </span>
-               <span className="text-brand text-xs md:text-sm flex items-center justify-center -translate-y-[1px]">♦</span>
-            </div>
-          ))}
-        </div>
-      ))}
-    </>
-  );
-}
-
-function MarketingTicker() {
-  return (
-    <div className="relative w-full shrink-0 overflow-hidden whitespace-nowrap py-4 md:py-5 z-20 bg-slate-50 flex items-center shadow-sm border-b border-slate-200">
-      <motion.div 
-        className="flex items-center w-max"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-      >
-         <TickerPhrases />
-      </motion.div>
-    </div>
-  );
-}
-
-function HeroCover({ onPrimaryClick }: { onPrimaryClick: () => void }) {
-  return (
-    <section className="relative w-full h-[100dvh] flex flex-col origin-center pointer-events-auto bg-[#03155b] overflow-hidden">
-      
-      {/* Marketing Ticker Loop - Absolute overlay */}
-      <div className="absolute top-0 left-0 w-full z-50 pointer-events-none">
-        <div className="relative w-full overflow-hidden whitespace-nowrap py-3 md:py-5 bg-white/10 backdrop-blur-md flex items-center border-b border-white/10">
-          <motion.div 
-            className="flex items-center w-max"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-          >
-             <TickerPhrases />
-          </motion.div>
-        </div>
-      </div>
-      
-      {/* Full Background Image Replacement */}
-      <div className="relative w-full flex-1 pointer-events-none z-0 flex items-center justify-center overflow-hidden min-h-0 bg-[#03155b]">
-        
-        {/* Abstract Architectural Shapes (Hero) */}
-        <motion.div 
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[15%] left-[5%] w-32 h-64 border border-white/5 rounded-3xl bg-white/[0.02] backdrop-blur-sm -rotate-6 hidden md:block z-10"
-        />
-        <motion.div 
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-[20%] right-[10%] w-48 h-32 border-2 border-white/10 rounded-[2rem] bg-transparent rotate-12 hidden lg:flex flex-col gap-3 justify-center items-center z-10"
-        >
-          <div className="w-20 h-1 bg-white/20 rounded-full" />
-          <div className="w-12 h-1 bg-white/20 rounded-full" />
-        </motion.div>
-
-        <picture className="absolute inset-0 w-full h-full block">
-          <source media="(min-width: 768px)" srcSet="https://i.ibb.co/23WNyS7T/Design-sem-nome-1.jpg" />
-          <img 
-            src="https://i.ibb.co/R4DJ81YD/Tem-marca-boa-que-s-precisa-ser-melhor-vista.jpg" 
-            alt="Dinamize Marketing - Estratégia 10P" 
-            className="w-full h-full object-cover object-top pointer-events-none relative z-20"
-            referrerPolicy="no-referrer"
-          />
-        </picture>
-        {/* Fade at the bottom to blend with background */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#03155b] via-[#03155b]/70 to-transparent z-30" />
-      </div>
-
-      <div className="relative z-40 w-full px-4 sm:px-6 text-center flex flex-col items-center pb-6 md:pb-10 shrink-0 bg-[#03155b] pt-0 md:pt-6">
-        <div className="absolute inset-x-0 -top-16 h-16 bg-gradient-to-t from-[#03155b] to-transparent z-10 pointer-events-none md:hidden" />
-        <div className="flex flex-col items-center w-full justify-center lg:max-w-lg max-w-[92vw] sm:max-w-md mx-auto relative z-20 -mt-8 md:mt-0">
-          <motion.button 
-            onClick={onPrimaryClick}
-            animate={{ scale: [1, 1.03, 1] }}
-            transition={{ 
-              scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-              duration: 0.2
-            }}
-            className="group relative py-3.5 sm:py-5 px-3 sm:px-6 w-full bg-[#16a34a] text-white font-black text-[11px] sm:text-[14px] md:text-[16px] uppercase tracking-normal sm:tracking-widest rounded-[16px] md:rounded-[20px] overflow-hidden shadow-[0_15px_30px_rgba(22,163,74,0.3)] transition-all hover:shadow-[0_20px_40px_rgba(22,163,74,0.4)] hover:-translate-y-1 active:scale-95 z-20 flex items-center justify-center gap-2 sm:gap-3 border-b-[5px] md:border-b-[6px] border-[#14532d]"
-          >
-            {/* Glossy top edge highlight */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none z-10" />
-            
-            {/* Auto-shine sweep effect */}
-            <motion.div 
-              animate={{ x: ["-300%", "300%"] }}
-              transition={{ repeat: Infinity, duration: 1.5, repeatDelay: 2.5, ease: "easeInOut" }}
-              className="absolute top-0 bottom-0 left-0 w-2/3 sm:w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-[25deg] pointer-events-none z-10" 
-            />
-            
-            {/* Active/Hover overlay */}
-            <div className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none z-10" />
-
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 relative z-20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-            </svg>
-            <span className="whitespace-nowrap mt-[2px] relative z-20 drop-shadow-sm font-sans">ENVIAR MENSAGEM NO WHATSAPP</span>
-          </motion.button>
-        </div>
-
-        {/* Apoio */}
-        <div className="mt-3 sm:mt-5 flex flex-col items-center justify-center gap-2 text-slate-400 font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest sm:tracking-widest text-center px-4 max-w-lg">
-          <span className="leading-snug text-white drop-shadow-md">Últimas vagas para consultoria estratégica este mês</span>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-           animate={{ y: [0, 8, 0] }}
-           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-           className="mt-4 md:mt-8 flex flex-col items-center justify-center opacity-80"
-        >
-          <span className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-[#16a34a] mb-1 drop-shadow-sm">Explore mais</span>
-          <ArrowDown className="w-4 h-4 md:w-5 md:h-5 text-[#16a34a] drop-shadow-sm" />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function ScrollSequenceText() {
-  const phrases = [
-    { 
-      prefix: "MAIS PEDIDOS NO", 
-      highlight: "WHATSAPP", 
-      highlightClass: "text-[12vw] md:text-[8rem] text-transparent bg-clip-text bg-gradient-to-b from-blue-600 to-blue-400 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
-    },
-    { 
-      prefix: "MAIS CLIENTES NA", 
-      highlight: "LOJA", 
-      highlightClass: "text-[13vw] md:text-[8.5rem] text-transparent bg-clip-text bg-gradient-to-b from-blue-600 to-blue-400 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
-    },
-    { 
-      prefix: "MAIS VENDAS NA", 
-      highlight: "SUA REGIÃO", 
-      hClass: "md:scale-110 drop-shadow-[0_0_30px_rgba(59,130,246,0.4)]",
-      highlightClass: "text-[10vw] md:text-[7rem] text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
-    }
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const hookRef = useRef<HTMLImageElement>(null);
+  const layoutRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % phrases.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, [phrases.length]);
+    if (!containerRef.current) return;
+
+    let ctx = gsap.context(() => {
+      const hook = hookRef.current;
+      const layout = layoutRef.current;
+      
+      const tl = gsap.timeline({
+        delay: 0.2
+      });
+
+      if (hook) {
+         // Hook drops in like heavy machinery
+         gsap.set(hook, { y: "-60%", rotationZ: -5, transformOrigin: "50% -5%" });
+         tl.to(hook, { 
+            y: "-4%", // Drops slightly past center
+            rotationZ: 2, 
+            duration: 1.2, 
+            ease: "sine.inOut"
+         }, 0);
+         
+         // Hook pulls UP
+         tl.to(hook, {
+            y: "-8%",
+            duration: 1.5,
+            ease: "sine.inOut"
+         }, 1.2);
+      }
+
+      const swayDelay = hook ? 1.2 : 0;
+      
+      if (layout) {
+          gsap.set(layout, { transformOrigin: "50% 50%" });
+          gsap.to(layout, {
+              rotationZ: 0.5,
+              duration: 4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: swayDelay
+          });
+      }
+
+      if (hook) {
+          gsap.to(hook, {
+              rotationZ: -1.5,
+              duration: 4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: swayDelay
+          });
+      }
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="relative w-full bg-white py-12 md:py-16 flex flex-col items-center justify-center px-6 overflow-hidden min-h-[250px] md:min-h-[350px]">
-      
-      {/* Background Depth/Glow */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-40">
-        <div className="absolute top-[20%] right-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-blue-500/10 blur-[130px] rounded-full" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-blue-500/10 blur-[100px] rounded-full" />
-      </div>
-
-      <div className="relative z-10 w-full max-w-5xl text-center flex items-center justify-center h-[120px] sm:h-[160px] md:h-[220px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, y: 30, scale: 0.95, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -30, scale: 1.05, filter: "blur(4px)" }}
-            transition={{ duration: 0.6, ease: [0.25, 1, 0.36, 1] }}
-            className="absolute w-full flex flex-col items-center justify-center"
-          >
-            <h2 className={`font-display flex flex-col items-center justify-center leading-[0.9] md:leading-[0.85] font-black uppercase tracking-tighter text-center w-full ${phrases[currentIndex].hClass || 'drop-shadow-sm'}`}>
-              <span className="text-2xl md:text-[3rem] text-transparent bg-clip-text bg-gradient-to-b from-slate-900 to-slate-700 mb-1 md:mb-2">{phrases[currentIndex].prefix}</span>
-              <span className={`${phrases[currentIndex].highlightClass} max-w-full block`}>{phrases[currentIndex].highlight}</span>
-            </h2>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-    </section>
+    <div ref={containerRef} className={`absolute inset-0 z-0 bg-[#021c91] overflow-hidden ${isMobileImg ? 'md:hidden' : 'hidden md:block'}`}>
+       <img 
+         ref={layoutRef} 
+         src={src}
+         alt="Background"
+         className="absolute inset-0 w-full h-full object-cover object-top z-0 scale-[1.05]" 
+       />
+       
+       {hookSrc && (
+           <img 
+              ref={hookRef}
+              src={hookSrc}
+              alt="Gancho"
+              className={isMobileImg 
+                ? "absolute top-[8%] right-0 w-[50%] sm:w-[45%] h-[110%] object-contain object-top z-10 pointer-events-none"
+                : "absolute -top-[5%] left-0 right-0 mx-auto w-[90%] md:w-[60%] lg:w-[45%] h-[110%] md:h-[110%] object-contain object-top z-10 pointer-events-none"
+              }
+           />
+       )}
+    </div>
   );
-}
-
-function CreativeMindSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  return (
-    <section className="relative w-full bg-[#031be0] overflow-hidden">
-      
-      {/* Background Decor (Industrial Modular Lines/Dots) */}
-      <div className="absolute inset-x-0 inset-y-0 overflow-hidden pointer-events-none z-0">
-        {/* Fine grid overlay */}
-        <div className="absolute inset-0 z-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at center, #ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-        
-        {/* Architectural Modular Lines */}
-        <motion.div 
-          animate={{ x: [-20, 0, -20] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] right-[-5%] w-[400px] h-px bg-white/20 hidden md:block"
-        />
-        <motion.div 
-          animate={{ x: [20, 0, 20] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] right-[-2%] w-[200px] h-px bg-white/30 hidden md:block"
-        />
-        
-        {/* Floating Geometric Block */}
-        <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[40%] left-[10%] w-16 h-16 border-2 border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm rotate-12 hidden lg:flex items-center justify-center"
-        >
-          <div className="w-4 h-4 bg-white/20 rounded-md" />
-        </motion.div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-12 md:pt-20 pb-0 flex flex-col md:flex-row items-center justify-between min-h-[500px] md:min-h-[700px] relative z-10">
-        
-        {/* Person Image - Positioned on the left/bottom depending on mobile/desktop */}
-        <div className="order-2 md:order-1 relative w-full md:w-1/2 flex justify-start items-end self-end h-auto mt-10 md:mt-0 z-10">
-          <img 
-            src="https://i.imgur.com/CJ8R3VT.png" 
-            alt="Especialista" 
-            className="w-[90%] md:w-full max-w-[600px] max-h-[80vh] object-contain object-bottom md:object-left-bottom drop-shadow-2xl"
-          />
-        </div>
-
-        {/* Text Box Content */}
-        <div className="order-1 md:order-2 w-full md:w-1/2 flex justify-center md:justify-end z-20 relative">
-          
-          <motion.div 
-            layout
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="bg-white rounded-3xl p-8 md:p-14 w-full max-w-[500px] shadow-[0_30px_60px_rgba(0,0,0,0.4)] border border-white/50"
-          >
-            <h2 className="text-[#031be0] text-5xl md:text-6xl font-bold font-sans tracking-[-0.03em] leading-none mb-5">
-              mente criativa
-            </h2>
-            
-            <p className="text-[#031be0] text-lg md:text-xl font-medium leading-snug mb-8 max-w-md">
-              Não trabalhamos apenas com artes e vídeos. Desenvolvemos soluções criativas com estratégia, direção e intenção clara, para que cada material não seja só bonito, mas funcione de verdade para a sua marca.
-            </p>
-
-            {/* Expand / Collapse Button */}
-            <motion.button 
-              layout="position"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-[#031be0] flex items-center justify-center text-[#031be0] hover:bg-[#031be0] hover:text-white transition-colors group mb-2 shrink-0"
-            >
-              <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
-                <ArrowDown size={18} className="group-hover:translate-y-px transition-transform" strokeWidth={2} />
-              </motion.div>
-            </motion.button>
-
-            {/* Revealed Text Content */}
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0, y: -20 }}
-                  animate={{ opacity: 1, height: "auto", y: 0 }}
-                  exit={{ opacity: 0, height: 0, y: -20 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-6 mt-4 border-t border-[#031be0]/10">
-                    <p className="text-[#031be0] text-lg font-medium leading-relaxed origin-top italic">
-                      "Dinamize sua marca. Criamos artes e vídeos sob medida para destacar o seu negócio e comunicar com mais impacto.<br/><br/>Transformamos ideias em peças visuais profissionais, estratégicas e pensadas para o que sua marca realmente precisa: atrair atenção, gerar valor e vender melhor."<br/><br/>
-                      <span className="font-bold block not-italic">— Paulo</span>
-                    </p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-
-      </div>
-    </section>
-  );
-}
-
-function ShowcaseCarousel() {
-  const images = [
-    "https://i.imgur.com/hp5FB7Z.jpg",
-    "https://i.imgur.com/00p0SaB.jpg",
-    "https://i.imgur.com/jKVgEjO.jpg",
-    "https://i.imgur.com/gbJKCam.jpg",
-    "https://i.imgur.com/LGTq89v.jpg",
-    "https://i.imgur.com/imk8I3z.jpg",
-    "https://i.imgur.com/byc0gXl.jpg"
-  ];
-
-  return (
-    <section className="py-8 md:py-16 overflow-hidden relative z-10 w-full bg-slate-50">
-      {/* Decorative Text */}
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center md:text-left">
-        <h2 className="text-3xl md:text-5xl font-black font-display text-slate-900 tracking-tighter uppercase italic skew-x-[-2deg]">
-          Nosso <span className="text-brand">Portfólio</span>
-        </h2>
-        <p className="text-slate-600 font-medium mt-2 max-w-xl text-sm md:text-base">
-          Criativos estratégicos e design de alto padrão, desenvolvidos sob medida para o seu segmento.
-        </p>
-      </div>
-
-      <div className="absolute inset-y-0 left-0 w-8 md:w-32 bg-gradient-to-r from-slate-50 to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-8 md:w-32 bg-gradient-to-l from-slate-50 to-transparent z-20 pointer-events-none" />
-      
-      <div className="flex w-max">
-        <motion.div 
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 60, ease: "linear", repeat: Infinity }}
-          className="flex gap-4 md:gap-8 px-4"
-        >
-          {/* Duplicate the array multi times to create a seamless infinite loop */}
-          {[...images, ...images, ...images, ...images].map((img, index) => (
-            <div 
-              key={index} 
-              className="relative w-[85vw] max-w-[1200px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden shrink-0 shadow-lg border border-slate-200 bg-white group flex items-center justify-center p-0"
-            >
-              <div className="absolute inset-0 bg-brand/5 opacity-0 hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay pointer-events-none" />
-              <img 
-                src={img} 
-                alt={`Portfólio Dinamize ${index + 1}`} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+};
 
 export default function App() {
-  const { scrollY } = useScroll();
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showBackToTopMessage, setShowBackToTopMessage] = useState(false);
-  const [formStep, setFormStep] = useState(0); // 0: Initial Button, 1: Name, 2: Email, 3: Phone, 4: Store, 5: Submit
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isClient, setIsClient] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    store: '',
-    phone: '',
-    email: ''
-  });
-
-  const nextStep = () => {
-    setFormStep(prev => prev + 1);
-  };
-
-  const handleWhatsAppDirect = () => {
-    window.open('https://wa.me/559991863273?text=Ol%C3%A1.%20Vi%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20o%20meu%20projeto.', '_blank');
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Integrando disparo para o Netlify Forms
-    try {
-      const form = e.target as HTMLFormElement;
-      const data = new FormData(form);
-      
-      // Oculto obrigatório para que o SPAs do React enviem pro Netlify corretamente
-      data.append('form-name', 'contato');
-      
-      await fetch('/', {
-        method: 'POST',
-        body: new URLSearchParams(data as any).toString(),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      });
-      
-      setIsSubmitted(true);
-    } catch (error) {
-      // Mesmo em erro, avançamos a tela por padrão
-      setIsSubmitted(true);
-    }
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setTimeout(() => setIsSuccess(false), 3000);
+    }, 3000);
   };
 
   useEffect(() => {
-    let messageTimer: NodeJS.Timeout;
-    const unsub = scrollY.onChange((latest) => {
-      // Show when near bottom (e.g. 80% of scroll height or absolute value)
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      const threshold = scrollHeight - clientHeight - 600;
-
-      if (latest > threshold) {
-        if (!showBackToTop) {
-          setShowBackToTop(true);
-          setShowBackToTopMessage(true);
-          clearTimeout(messageTimer);
-          messageTimer = setTimeout(() => setShowBackToTopMessage(false), 3000);
-        }
-      } else {
-        setShowBackToTop(false);
-        setShowBackToTopMessage(false);
-      }
+    setIsClient(true);
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
     });
 
-    return () => {
-      unsub();
-      clearTimeout(messageTimer);
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
     };
-  }, [scrollY, showBackToTop]);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const images = [
+    "https://i.imgur.com/hp5FB7Z.png",
+    "https://i.imgur.com/00p0SaB.png",
+    "https://i.imgur.com/byc0gXl.png"
+  ];
+
+  if (!isClient) return <div className="w-screen h-screen bg-slate-900" />;
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-brand selection:text-white relative flex flex-col w-full">
-      {/* Background Decor */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-brand/5 blur-[200px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-900/5 blur-[150px] rounded-full" />
-      </div>
-
-      {/* Hero / Cover Section First */}
-      <HeroCover onPrimaryClick={handleWhatsAppDirect} />
+    <div className="relative w-full min-h-screen font-sans">
       
-      {/* Hook Strategy Section (Code + Transparent PNG) */}
-      <HookStrategySection />
-
-      {/* Animated Text Section */}
-      <ScrollSequenceText />
-
-      {/* Zebra Marquee */}
-      <div className="mt-0">
-        <MarqueeTape />
-      </div>
-
-      <Marketing360Section />
-
-      {/* Portfolio Showcase section */}
-      <ShowcaseCarousel />
-
-      <Strategy10PSection />
-
-      {/* CTA Section */}
-      <section className="py-20 md:py-40 px-4 sm:px-6 md:px-10 bg-white">
-        <div className="max-w-4xl mx-auto mb-16 md:mb-20 text-center">
-          <h2 className="font-display text-5xl md:text-7xl font-black mb-6 md:mb-8 leading-[0.85] italic skew-x-[-3deg] uppercase text-slate-900">
-            O MERCADO PREMIA <br />
-            <span className="text-brand drop-shadow-sm">QUEM AGE RÁPIDO.</span>
-          </h2>
-          <p className="text-slate-600 text-xl md:text-2xl font-medium leading-[1.6] max-w-3xl mx-auto">
-            Cada dia sem um posicionamento de alto padrão é lucro transferido para o seu concorrente.
-            <strong className="text-slate-900 font-black block mt-2 text-2xl md:text-3xl tracking-tight">Reserve sua imersão estratégica hoje.</strong>
-          </p>
-        </div>
-
-        <div className="max-w-xl mx-auto bg-white p-6 sm:p-10 md:p-12 text-center shadow-[0_15px_50px_rgba(0,0,0,0.06)] rounded-[2rem] border border-slate-200 relative overflow-hidden flex flex-col items-center">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand/5 blur-[150px]" />
+      {/* NORMAL SITE */}
+      <div className="relative w-full h-full z-0 bg-white">
+        
+        {/* Cover Hero */}
+        <section className="relative w-full flex flex-col bg-[#021c91] overflow-hidden">
           
-          <div className="relative z-10 w-full mb-8">
-            <h3 className="text-slate-900 text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Reserve sua Vaga</h3>
-            <p className="text-slate-500 text-sm md:text-base">Preencha rápido e vamos dar o start na execução dos seus projetos.</p>
+          {/* Cinematic CinematicHeroBackground for Desktop */}
+          <CinematicHeroBackground 
+            src="https://i.imgur.com/UV2yxMU.png" 
+            hookSrc="https://i.imgur.com/WVOCsyy.png"
+          />
+
+          {/* Cinematic CinematicHeroBackground for Mobile */}
+          <CinematicHeroBackground 
+            src="https://i.imgur.com/MNjyIJL.png" 
+            hookSrc="https://i.imgur.com/WVOCsyy.png"
+            isMobileImg={true}
+          />
+
+          {/* Mobile Image (in-flow to show full cover height) */}
+          <div className="w-full md:hidden relative z-0 pointer-events-none opacity-0">
+            {/* Kept invisible to maintain the layout height of the section correctly on mobile if needed */}
+            <img 
+              src="https://i.imgur.com/MNjyIJL.png" 
+              alt="Capa Dinamize" 
+              className="w-full h-auto"
+              referrerPolicy="no-referrer"
+            />
+            {/* Blur fading up to half of the cover */}
+            <div 
+              className="absolute inset-x-0 bottom-0 h-[50%] pointer-events-none backdrop-blur-md"
+              style={{ WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)', maskImage: 'linear-gradient(to top, black 20%, transparent 100%)' }}
+            ></div>
+            {/* Blend transition into the blue background */}
+            <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-[#021c91] via-[#021c91]/80 to-transparent pointer-events-none"></div>
           </div>
 
-          <div className="relative z-10 w-full flex flex-col items-center">
-            <AnimatePresence mode="wait">
-              {isSubmitted ? (
-                <motion.div 
-                  key="success"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-white/80 backdrop-blur-xl p-10 md:p-16 rounded-3xl border border-brand/20 shadow-xl w-full text-center"
-                >
-                  <div className="w-20 h-20 bg-brand/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-brand/20">
-                    <CheckCircle2 size={40} className="text-brand" />
-                  </div>
-                  <h3 className="text-slate-900 text-3xl font-black uppercase mb-4 tracking-tighter italic">Mensagem Enviada!</h3>
-                  <p className="text-slate-600 text-lg font-medium leading-relaxed">
-                    Mensagem enviada! <br />
-                    <span className="text-brand font-bold">Entraremos em contato em breve.</span>
-                  </p>
-                  <button 
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormStep(0);
-                      setFormData({ name: '', store: '', phone: '', email: '' });
-                    }}
-                    className="mt-8 text-slate-400 hover:text-slate-800 uppercase text-[10px] font-bold tracking-widest underline"
-                  >
-                    Enviar outra mensagem
-                  </button>
-                </motion.div>
-              ) : formStep === 0 ? (
-                <div className="flex flex-col w-full gap-4">
-                  <motion.button 
-                    key="initial-button"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    onClick={() => setFormStep(1)}
-                    className="group relative py-5 px-4 md:py-6 bg-brand text-white font-black text-[clamp(11px,4vw,18px)] uppercase tracking-tight md:tracking-wider rounded-2xl md:rounded-[24px] overflow-hidden shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all hover:scale-[1.05] active:scale-95 w-full flex items-center justify-center gap-2 md:gap-3 whitespace-nowrap"
-                  >
-                    {/* Auto-shine sweep effect */}
-                    <motion.div 
-                      animate={{ x: ["-300%", "300%"] }}
-                      transition={{ repeat: Infinity, duration: 1.5, repeatDelay: 2.5, ease: "easeInOut" }}
-                      className="absolute top-0 bottom-0 left-0 w-2/3 sm:w-1/2 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-[25deg] pointer-events-none z-10" 
-                    />
-                    <div className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/10 transition-colors duration-300 pointer-events-none z-10" />
-                    
-                    <Target className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative z-20" />
-                    <span className="mt-[2px] relative z-20">ME INSCREVER PARA A VAGA</span>
-                  </motion.button>
-
-                  <motion.a
-                    href="https://wa.me/559991863273?text=Olá.%20Gostaria%20de%20reservar%20minha%20vaga%20e%20falar%20diretamente%20pelo%20WhatsApp."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    className="group relative py-5 px-4 md:py-6 bg-green-600 text-white font-black text-[clamp(11px,4vw,18px)] uppercase tracking-tight md:tracking-wider rounded-2xl md:rounded-[24px] overflow-hidden shadow-[0_0_30px_rgba(22,163,74,0.3)] hover:shadow-[0_0_40px_rgba(22,163,74,0.6)] transition-all hover:scale-[1.05] active:scale-95 w-full flex items-center justify-center gap-2 md:gap-3 whitespace-nowrap"
-                  >
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative z-20" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                    </svg>
-                    <span className="mt-[2px] relative z-20">CHAMAR NO WHATSAPP AGORA</span>
-                  </motion.a>
-                </div>
-              ) : (
-                <motion.form 
-                  key="form-steps"
-                  name="contato"
-                  data-netlify="true"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  onSubmit={formStep === 5 ? handleFormSubmit : (e) => { e.preventDefault(); nextStep(); }}
-                  className="flex flex-col gap-6 pointer-events-auto bg-white/90 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl w-full text-left max-w-md"
-                >
-                  <input type="hidden" name="form-name" value="contato" />
-                  <AnimatePresence mode="wait">
-                    {formStep === 1 && (
-                      <motion.div 
-                        key="step1" 
-                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
-                        <label className="block text-[11px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">Qual o seu nome completo?</label>
-                        <input 
-                          autoFocus
-                          type="text" 
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
-                          placeholder="Digite seu nome" 
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
-                        />
-                      </motion.div>
-                    )}
-                    {formStep === 2 && (
-                      <motion.div 
-                        key="step2" 
-                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
-                        <label className="block text-[11px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">Seu melhor e-mail?</label>
-                        <input 
-                          autoFocus
-                          type="email" 
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
-                          placeholder="seu@email.com" 
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
-                        />
-                      </motion.div>
-                    )}
-                    {formStep === 3 && (
-                      <motion.div 
-                        key="step3" 
-                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
-                        <label className="block text-[11px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">Qual o seu WhatsApp?</label>
-                        <input 
-                          autoFocus
-                          type="tel" 
-                          name="phone"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                          placeholder="(00) 00000-0000" 
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
-                        />
-                      </motion.div>
-                    )}
-                    {formStep === 4 && (
-                      <motion.div 
-                        key="step4" 
-                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="space-y-4"
-                      >
-                        <label className="block text-[11px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">Qual o nome da sua loja?</label>
-                        <input 
-                          autoFocus
-                          type="text" 
-                          name="store"
-                          required
-                          value={formData.store}
-                          onChange={(e) => setFormData({...formData, store: e.target.value})}
-                          placeholder="Nome do seu negócio" 
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/50 text-slate-900 placeholder:text-slate-400 text-base transition-all"
-                        />
-                      </motion.div>
-                    )}
-                    {formStep === 5 && (
-                      <motion.div 
-                        key="step5" 
-                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-                        className="text-center py-6"
-                      >
-                        <h4 className="text-slate-900 text-xl font-bold mb-4">Tudo pronto!</h4>
-                        <p className="text-slate-600 mb-6">Confirme o envio dos dados para nossa equipe.</p>
-                        <div className="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 mb-6">
-                           <p className="text-xs text-slate-500 mb-1">Nome: <span className="text-slate-900 font-bold">{formData.name}</span></p>
-                           <p className="text-xs text-slate-500 mb-1">E-mail: <span className="text-slate-900 font-bold">{formData.email}</span></p>
-                           <p className="text-xs text-slate-500 mb-1">WhatsApp: <span className="text-slate-900 font-bold">{formData.phone}</span></p>
-                           <p className="text-xs text-slate-500">Loja: <span className="text-slate-900 font-bold">{formData.store}</span></p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <div className="flex gap-4">
-                    {formStep > 1 && (
-                      <button 
-                        type="button" 
-                        onClick={() => setFormStep(prev => prev - 1)}
-                        className="px-6 py-4 border border-slate-200 text-slate-500 rounded-2xl font-bold uppercase text-[10px] tracking-widest hover:bg-slate-50 transition-all"
-                      >
-                        Voltar
-                      </button>
-                    )}
-                    <button 
-                      type="submit"
-                      className="flex-1 py-4 bg-brand text-white font-black uppercase text-[12px] tracking-widest rounded-2xl shadow-lg hover:shadow-brand/20 transition-all hover:scale-[1.02] active:scale-95"
-                    >
-                      {formStep === 5 ? "ENVIAR AGORA" : "PRÓXIMO"}
-                    </button>
-                  </div>
-                </motion.form>
-              )}
-            </AnimatePresence>
-            <div className="mt-6 md:mt-8 flex items-center justify-center gap-2 md:gap-3 text-brand font-mono text-[9px] md:text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] bg-red-500/10 p-2 md:p-3 rounded-lg border border-red-500/20 text-red-500">
-              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0 drop-shadow-[0_0_8px_rgba(239,68,68,1)]" />
-              <span className="text-center font-black">Últimas vagas para consultoria estratégica este mês</span>
-            </div>
+          {/* Desktop Image (in-flow to show full cover height) */}
+          <div className="hidden md:block w-full relative z-0 pointer-events-none opacity-0">
+            <img 
+              src="https://i.imgur.com/UV2yxMU.png" 
+              alt="Capa Dinamize Desktop" 
+              className="w-full h-auto"
+              referrerPolicy="no-referrer"
+            />
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="pt-12 pb-16 border-t border-slate-200 bg-white px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Top Section: Contact Info */}
-          <div className="flex justify-center md:justify-start mb-16">
-            <div className="flex flex-col items-start">
-              <span className="text-brand text-[9px] font-black uppercase tracking-[0.3em] mb-4 ml-6 opacity-80">Canais de Contato</span>
-              <div className="inline-flex flex-col items-start gap-4 border-l-2 border-brand/20 pl-6 py-2">
-                <a href="mailto:dinamizemarketing@gmail.com" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
-                  <Mail size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
-                  <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">dinamizemarketing@gmail.com</span>
-                </a>
-                <a href="https://wa.me/559991863273" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
-                  <Phone size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
-                  <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">(99) 9186-3273</span>
-                </a>
-                <a href="https://www.instagram.com/dinamize_7?igsh=N2kwZG1heTY0YTIx" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-500 hover:text-brand transition-colors group">
-                  <Instagram size={18} className="text-brand group-hover:scale-110 transition-transform shrink-0" />
-                  <span className="text-xs md:text-sm font-bold uppercase tracking-[0.1em]">@dinamize_7</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Section: Copyright | Links */}
-          <div className="pt-10 border-t border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="flex flex-row items-center gap-3 md:gap-6">
-              <div className="text-left">
-                <p className="text-slate-500 text-[8px] sm:text-[10px] uppercase font-bold tracking-[0.1em] sm:tracking-[0.2em] leading-tight">
-                  © 2026 DINAMIZE (D7) • TODOS OS DIREITOS RESERVADOS <br className="hidden sm:block" />
-                  <span className="text-slate-900 sm:ml-1">MARKETING ESTRATÉGICO</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-8">
-              <a href="#" className="text-slate-500 hover:text-brand transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Termos</a>
-              <a href="#" className="text-slate-500 hover:text-brand transition-colors text-[10px] font-black uppercase tracking-widest leading-none">Privacidade</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Back to Top Button */}
-      <AnimatePresence>
-        {showBackToTop && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 right-6 flex items-center gap-3 z-50 pointer-events-none"
-          >
-            <AnimatePresence>
-              {showBackToTopMessage && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 20, scale: 0.8 }}
-                  className="bg-brand text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-2xl"
-                >
-                  Voltar ao início
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <motion.button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="w-12 h-12 bg-slate-800/80 backdrop-blur-md border border-slate-700 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-slate-700 hover:scale-110 transition-all pointer-events-auto group"
+          
+          {/* Floating WhatsApp Button (Inside Hero now) */}
+          <div className="absolute z-30 bottom-[48%] sm:bottom-[52%] md:bottom-[8%] lg:bottom-[10%] xl:bottom-[12%] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[5%] lg:left-[5%] xl:left-[8%] w-auto flex justify-center md:justify-start">
+            <motion.a
+              href="#"
+              animate={{ 
+                y: [0, -10, 0],
+                scale: [1, 1, 0.95, 1.05, 1, 1]
+              }}
+              transition={{ 
+                y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 6, repeat: Infinity, times: [0, 0.83, 0.86, 0.89, 0.92, 1], ease: "easeInOut" }
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative overflow-hidden flex items-center justify-start gap-3 md:gap-4 bg-[#2cb75e] text-white px-5 py-3 md:px-12 md:py-5 w-max rounded-xl md:rounded-2xl font-extrabold text-[11px] sm:text-[13px] leading-[1.3] md:text-base lg:text-lg tracking-[0.05em] shadow-[0_10px_40px_rgba(37,211,102,0.3)] hover:shadow-[0_15px_50px_rgba(37,211,102,0.5)] transition-shadow border-b-[4px] md:border-b-[5px] border-[#1e8544] hover:border-[#196b37] hover:bg-[#28ad57] group"
             >
-              <ChevronUp size={24} className="group-hover:-translate-y-1 transition-transform" />
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {/* Efeito de carregamento contínuo (loading bar effect) */}
+              <motion.div 
+                className="absolute inset-0 bg-white/20 origin-left"
+                animate={{ 
+                  scaleX: [0, 0, 0, 1, 1, 0],
+                  opacity: [0, 0, 1, 1, 0, 0]
+                }}
+                transition={{ 
+                  duration: 6, 
+                  repeat: Infinity, 
+                  times: [0, 0.5, 0.51, 0.83, 0.86, 1], 
+                  ease: "linear" 
+                }}
+              />
+              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 fill-current relative z-10 shrink-0">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+              </svg>
+              <span className="relative z-10 whitespace-nowrap">ENVIAR MENSAGEM NO WHATSAPP</span>
+            </motion.a>
+          </div>
+
+        </section>
+
+        <Marketing360Section />
+        
+        {/* Portfólio Carousel */}
+        <section className="py-8 md:py-32 overflow-hidden relative w-full bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6 mb-12 text-center md:text-left">
+            <h2 className="text-3xl md:text-5xl font-black font-display text-slate-900 tracking-tighter uppercase italic skew-x-[-2deg]">
+              Nosso <span className="text-blue-600">Portfólio</span>
+            </h2>
+            <p className="text-slate-600 font-medium mt-2 max-w-xl text-sm md:text-base">
+              Criativos estratégicos e design de alto padrão, desenvolvidos sob medida para o seu segmento.
+            </p>
+          </div>
+
+          <div className="absolute inset-y-0 left-0 w-8 md:w-32 bg-gradient-to-r from-slate-50 to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-8 md:w-32 bg-gradient-to-l from-slate-50 to-transparent z-20 pointer-events-none" />
+          
+          <div className="flex w-max">
+            <motion.div 
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 60, ease: "linear", repeat: Infinity }}
+              className="flex gap-4 md:gap-8 px-4 items-center"
+            >
+              {[0, 1, 2, 3].map((loopIndex) => (
+                <React.Fragment key={loopIndex}>
+                  {images.map((img, index) => (
+                    <div 
+                      key={index} 
+                      className="relative w-[85vw] max-w-[1200px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden shrink-0 shadow-lg border border-slate-200 bg-white group flex items-center justify-center p-0"
+                    >
+                      <div className="absolute inset-0 bg-blue-600/5 opacity-0 hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay pointer-events-none" />
+                      <img 
+                        src={img} 
+                        alt={`Portfólio Dinamize ${index + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  ))}
+                </React.Fragment>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Formulário/CTA Section */}
+        <section className="relative w-full bg-[#0012A3] py-24 md:py-32 flex justify-center items-center px-6 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#0024f5_0%,_#000a5c_100%)] opacity-80" />
+          
+          <div className="relative z-10 max-w-4xl w-full text-center flex flex-col items-center">
+            <h2 className="font-display flex flex-col items-center justify-center text-center uppercase w-full mb-8">
+              <span className="text-3xl sm:text-5xl md:text-6xl font-black leading-[1.1] text-white tracking-tight drop-shadow-2xl">
+                O CRESCIMENTO
+              </span>
+              <div className="relative inline-block mt-1 sm:mt-2">
+                <span className="relative z-10 text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-[1.1] text-blue-400 tracking-tight drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                  NÃO ESPERA.
+                </span>
+                {/* Glass reflection overlay */}
+                <span 
+                  className="absolute inset-0 z-20 text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-[1.1] tracking-tight bg-gradient-to-tr from-transparent via-white/80 to-transparent bg-clip-text text-transparent pointer-events-none select-none" 
+                  aria-hidden="true"
+                >
+                  NÃO ESPERA.
+                </span>
+              </div>
+            </h2>
+            <p className="text-blue-100/80 text-lg md:text-xl mb-12 max-w-2xl font-medium">
+              Preencha os dados abaixo e nossa equipe entrará em contato com você o mais rápido possível para montar sua estratégia de crescimento.
+            </p>
+
+            <form onSubmit={handleFormSubmit} className="w-full max-w-md flex flex-col gap-4">
+              <input 
+                type="text" 
+                placeholder="Seu Nome" 
+                required
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
+              />
+              <input 
+                type="email" 
+                placeholder="Seu E-mail" 
+                required
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
+              />
+              <input 
+                type="tel" 
+                placeholder="Seu Telefone / WhatsApp" 
+                required
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
+              />
+              <button 
+                type="submit"
+                disabled={isSubmitting || isSuccess}
+                className="mt-4 flex items-center justify-center gap-2 w-full bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-wider disabled:opacity-50 disabled:hover:translate-y-0"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                    Enviando...
+                  </>
+                ) : isSuccess ? (
+                  <>
+                    <CheckCircle2 className="w-6 h-6 text-green-300" />
+                    Formulário Enviado!
+                  </>
+                ) : (
+                  "Garantir Minha Vaga"
+                )}
+              </button>
+
+              <div className="flex items-center gap-4 my-2 opacity-60">
+                <div className="flex-1 h-px bg-white/20"></div>
+                <span className="text-white text-sm uppercase tracking-wider font-semibold">OU</span>
+                <div className="flex-1 h-px bg-white/20"></div>
+              </div>
+
+              <a 
+                href="https://wa.me/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-wider flex items-center justify-center gap-3"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </form>
+          </div>
+        </section>
+
+      </div>
     </div>
   );
 }

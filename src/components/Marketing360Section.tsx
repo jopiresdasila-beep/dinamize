@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Megaphone,
@@ -8,149 +8,169 @@ import {
   CalendarDays,
   Palette,
   Instagram,
+  BarChart2,
+  MessageCircle,
   X
 } from 'lucide-react';
 
 const services = [
-  { icon: Layout, title: "Websites &\nLanding Pages", description: "Estruturas de alta conversão para transformar visitantes em clientes fiéis.", details: "Criamos páginas focadas em conversão, otimizadas para velocidade, responsivas em todos os dispositivos e com design centrado na experiência do usuário.\n\nElas são projetadas especificamente para receber tráfego qualificado e conduzir o visitante por uma jornada persuasiva até que ele tome a ação desejada: seja uma compra, envio de formulário ou contato no WhatsApp." },
-  { icon: Search, title: "SEO Local &\nGoogle", description: "Domine as buscas da sua região e seja a escolha óbvia dos seus clientes.", details: "Posicionamos sua empresa no topo do Google quando os clientes estão ativamente buscando pelos seus serviços.\n\nIsso inclui a otimização completa do seu Perfil da Empresa no Google (antigo Google Meu Negócio), configuração de palavras-chave locais e estratégias de SEO para garantir que você seja encontrado antes da concorrência na sua cidade e região." },
-  { icon: CalendarDays, title: "Cronograma\nde Postagens", description: "Mapeamento estratégico de publicações para manter sua audiência sempre engajada e atrair novas vendas.", details: "Construímos o fluxo ideal de postagens para sua marca ganhar constância e relevância ao longo da semana.\n\nNosso método planeja temas de topo, meio e fundo de funil, distribuindo o conteúdo em dias estratégicos para aquecer o público e também oferecer seus produtos ou serviços no momento certo, evitando perfis panfleteiros e cansativos." },
-  { icon: Instagram, title: "Gerenciamento\nde Redes Sociais", description: "Posicionamento de autoridade que transforma seguidores em compradores.", details: "Assumimos a linha de frente do seu Instagram, organizando a casa, construindo branding de valor e alinhando cada detalhe visual.\n\nO objetivo é ter um perfil magnético que transmita imediatamente a credibilidade e a qualidade do seu negócio. Desde a bio, organização dos destaques, até o feed alinhado e cativante." },
-  { icon: Video, title: "Roteirização\nde Vídeos", description: "Roteiros magnéticos que prendem a atenção e conduzem direto para a venda.", details: "Descobrimos o ângulo perfeito para os seus vídeos (Tiktok, Reels, Shorts). Usamos técnicas de copywriting para prender a atenção nos primeiros 3 segundos.\n\nTe entregamos roteiros completos, indicando o que você ou sua equipe devem gravar e falar, passo a passo, construindo o desejo pela sua solução antes da chamada para ação final." },
-  { icon: Megaphone, title: "Gestão de Tráfego\n& Performance", description: "Campanhas de alta performance focadas em escalar seu ROI e lucratividade.", details: "Investimos de maneira calculada em anúncios pagos (Facebook Ads, Instagram Ads e Google Ads) para atrair milhares de pessoas segmentadas.\n\nAnalisamos métricas diariamente e otimizamos as campanhas para garantir o menor custo de aquisição e o maior retorno sobre investimento, levando uma enxurrada de clientes qualificados à sua porta todos os dias." },
-  { icon: Palette, title: "Design &\nCriativos", description: "Materiais visuais com padrão ouro que destacam o seu negócio e valorizam sua marca frente à concorrência.", details: "Muito além de imagens bonitas. Produzimos recursos visuais (artes, anúncios e criativos) alinhados à identidade da marca.\n\nEsses criativos comunicam profissionalismo, geram confiança e superam visualmente os materiais da sua concorrência, aumentando diretamente o valor percebido do seu negócio no mercado." },
+  { 
+    icon: Layout, 
+    title: "Websites & Landing Pages", 
+    subtitle: "Sites que convertem.",
+    description: "Estruturas de alta conversão para transformar visitantes em clientes fiéis.", 
+    image: "https://i.imgur.com/KzeVUJb.png",
+    details: "Criamos páginas focadas em conversão, otimizadas para velocidade, responsivas em todos os dispositivos e com design centrado na experiência do usuário.\n\nElas são projetadas especificamente para receber tráfego qualificado e conduzir o visitante por uma jornada persuasiva até que ele tome a ação desejada: seja uma compra, envio de formulário ou contato no WhatsApp." 
+  },
+  { 
+    icon: Search, 
+    title: "SEO Local & Google", 
+    subtitle: "Apareça no Google.",
+    description: "Domine as buscas da sua região e seja a escolha óbvia dos seus clientes.", 
+    image: "https://i.imgur.com/awSp9tz.png",
+    details: "Posicionamos sua empresa no topo do Google quando os clientes estão ativamente buscando pelos seus serviços.\n\nIsso inclui a otimização completa do seu Perfil da Empresa no Google (antigo Google Meu Negócio), configuração de palavras-chave locais e estratégias de SEO para garantir que você seja encontrado antes da concorrência na sua cidade e região." 
+  },
+  { 
+    icon: CalendarDays, 
+    title: "Cronograma de Postagens", 
+    subtitle: "Planejamento que organiza e gera resultados.",
+    description: "Mapeamento estratégico de publicações para manter sua audiência sempre engajada e atrair novas vendas.", 
+    image: "https://i.imgur.com/TIRpznd.png",
+    details: "Construímos o fluxo ideal de postagens para sua marca ganhar constância e relevância ao longo da semana.\n\nNosso método planeja temas de topo, meio e fundo de funil, distribuindo o conteúdo em dias estratégicos para aquecer o público e também oferecer seus produtos ou serviços no momento certo, evitando perfis panfleteiros e cansativos." 
+  },
+  { 
+    icon: Instagram, 
+    title: "Gestão de Redes Sociais", 
+    subtitle: "Gestão estratégica que engaja.",
+    description: "Posicionamento de autoridade que transforma seguidores em compradores.", 
+    image: "https://i.imgur.com/lQ6Svjh.png",
+    details: "Assumimos a linha de frente do seu Instagram, organizando a casa, construindo branding de valor e alinhando cada detalhe visual.\n\nO objetivo é ter um perfil magnético que transmita imediatamente a credibilidade e a qualidade do seu negócio. Desde a bio, organização dos destaques, até o feed alinhado e cativante." 
+  },
+  { 
+    icon: Megaphone, 
+    title: "Gestão de Tráfego", 
+    subtitle: "Performance escalável.",
+    description: "Campanhas de alta performance focadas em escalar seu ROI e lucratividade.", 
+    image: "https://i.imgur.com/zQ6fWvs.png",
+    details: "Investimos de maneira calculada em anúncios pagos (Facebook Ads, Instagram Ads e Google Ads) para atrair milhares de pessoas segmentadas.\n\nAnalisamos métricas diariamente e otimizamos as campanhas para garantir o menor custo de aquisição e o maior retorno sobre investimento, levando uma enxurrada de clientes qualificados à sua porta todos os dias." 
+  },
+  { 
+    icon: Palette, 
+    title: "Design & Criativos", 
+    subtitle: "Criativos que vendem.",
+    description: "Materiais visuais com padrão ouro que destacam o seu negócio e valorizam sua marca frente à concorrência.", 
+    image: "https://i.imgur.com/T3zVfSd.png",
+    details: "Muito além de imagens bonitas. Produzimos recursos visuais (artes, anúncios e criativos) alinhados à identidade da marca.\n\nEsses criativos comunicam profissionalismo, geram confiança e superam visualmente os materiais da sua concorrência, aumentando diretamente o valor percebido do seu negócio no mercado." 
+  },
+  { 
+    icon: Video, 
+    title: "Editor de Vídeo", 
+    subtitle: "Focado em Instagram.",
+    description: "Edição dinâmica e envolvente para aumentar o engajamento e as vendas nas redes sociais.", 
+    image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200",
+    details: "Formatamos e editamos todo o material gravado para criar vídeos de alta retenção voltados para Reels, TikTok, YouTube Shorts etc.\n\nUtilizamos transições modernas, legendas dinâmicas, tratamento de cor, mixagem de áudio e todos os elementos necessários para garantir que sua mensagem chegue com clareza e alto nível profissional." 
+  },
+  { 
+    icon: MessageCircle, 
+    title: "Ferramentas para WhatsApp", 
+    subtitle: "Automação e gestão de conversas.",
+    description: "Facilite o atendimento, diminua a espera e aumente sua taxa de conversão diária.", 
+    image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=1200",
+    details: "Implementamos integrações para o atendimento via WhatsApp do seu negócio. Desde respostas instantâneas, organização por etapas até disparo de lembretes e ofertas.\n\nCom ferramentas eficientes, você otimiza o tempo da sua equipe de vendas, garantindo que nenhum lead esfrie e todos os contatos recebam atenção rápida e profissional." 
+  },
 ];
 
 export default function Marketing360Section() {
   const [selectedService, setSelectedService] = useState<number | null>(null);
 
   return (
-    <section className="py-12 px-6 md:px-10 relative z-10 overflow-hidden bg-[#F8FAFC]" id="metodo">
-      {/* Background Decor (Clean, Modern, Technological Abstract Industrial) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Isometric Grid Base */}
-        <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#0F172A 1px, transparent 1px), linear-gradient(to right, #0F172A 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-        
-        {/* Abstract Modular Blocks/Bars */}
-        <motion.div 
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] right-[5%] w-64 h-32 border border-slate-200/60 rounded-[2rem] bg-slate-50/50 backdrop-blur-sm -rotate-6 hidden md:block"
-        >
-          <div className="absolute top-4 left-4 w-12 h-1 bg-brand/20 rounded-full" />
-          <div className="absolute bottom-4 right-4 w-20 h-1 bg-brand/10 rounded-full" />
-        </motion.div>
-
-        <motion.div 
-          animate={{ y: [0, 15, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[20%] left-[5%] w-48 h-48 border border-slate-200/80 rounded-[2.5rem] bg-white/40 backdrop-blur-md rotate-12 flex flex-col justify-between p-6 shadow-[0_10px_40px_rgba(59,130,246,0.03)] hidden md:flex"
-        >
-          <div className="w-8 h-8 rounded-lg bg-brand/10 border border-brand/20" />
-          <div className="w-full flex gap-2">
-            <div className="flex-1 h-1.5 bg-slate-200 rounded-full" />
-            <div className="w-4 h-1.5 bg-brand/30 rounded-full" />
-          </div>
-        </motion.div>
-
-        <motion.div 
-          animate={{ x: [0, 30, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[40%] left-[-2%] w-24 h-64 border border-brand/10 rounded-[1.5rem] bg-gradient-to-b from-brand/[0.02] to-transparent hidden lg:block"
+    <section 
+      className="pb-16 md:pb-32 relative z-10 bg-white" 
+      id="metodo"
+    >
+      {/* Edge-to-edge Image Divider (The "Divisão") */}
+      <div className="w-screen absolute -top-12 sm:-top-20 md:-top-32 left-1/2 -translate-x-1/2 z-20 pointer-events-none lg:hidden">
+        <img 
+          src="https://i.imgur.com/ydIVbPF.png" 
+          alt="Divisor de seção" 
+          className="w-full h-auto block object-cover"
+          referrerPolicy="no-referrer"
         />
-
-        {/* Soft Gradients */}
-        <div className="absolute top-0 right-0 w-full md:w-3/4 h-[600px] bg-gradient-to-bl from-blue-100/50 via-transparent to-transparent opacity-80 rounded-bl-full" />
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full" />
       </div>
 
-      <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
+      {/* Soft Blue Vibrant Background with Radial Gradients for White Theme */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-blue-100/50 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#001eff]/5 blur-[120px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10 w-full px-4 sm:px-6 pt-32 sm:pt-40 md:pt-48 lg:pt-56">
         
-        {/* Header Content */}
+        {/* Header Content - Updated for Light Theme */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10 md:mb-16 max-w-4xl"
+          className="text-center mb-16 md:mb-24 max-w-4xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/5 border border-brand/20 text-brand text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-            Ecossistema Completo
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase mb-6 shadow-[0_0_20px_rgba(59,130,246,0.1)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+            Nossos Serviços
           </div>
-          
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tighter italic skew-x-[-2deg] text-slate-900">
-            NOSSA ATUAÇÃO:<br/>SERVIÇOS 360º
+
+          <h2 className="font-display flex flex-col items-center justify-center text-center uppercase w-full">
+            <span className="text-sm sm:text-base md:text-lg tracking-[0.5em] font-semibold text-blue-700 mb-2">SOLUÇÕES</span>
+            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-[1.1] text-slate-900 tracking-tight">EXPERIÊNCIA</span>
+            <div className="flex items-center justify-center gap-2 md:gap-4 -mt-1 md:-mt-2">
+              <span className="text-xl sm:text-3xl md:text-4xl font-bold text-slate-500">EM</span>
+              <div className="relative inline-block pb-2">
+                <span className="relative z-10 text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-[1.1] text-blue-700 tracking-tight">
+                  MARKETING
+                </span>
+              </div>
+            </div>
           </h2>
-          
-          <p className="text-slate-600 text-lg md:text-xl leading-[1.6] max-w-3xl mx-auto font-medium">
-            O <strong className="text-slate-900 font-bold">Marketing 360º</strong> garante a amplitude da nossa atuação: sua marca com presença de alto nível em todos os canais digitais. Já a <strong className="text-brand font-bold">Estratégia 10P</strong> é a nossa base metodológica sólida, direcionando cada ação para um único propósito: gerar resultados reais e previsíveis.
-          </p>
         </motion.div>
 
-        {/* Unified Responsive Grid (HTML Compatible / Document Flow) */}
-        <div className="w-full mt-10 md:mt-16 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
-          
-          {/* Main 360 Hub Card (Spans 2 columns on desktop/tablet) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="md:col-span-2 bg-gradient-to-br from-white to-[#F1F5F9] p-8 md:p-12 rounded-[2rem] border border-slate-200 text-left relative overflow-hidden flex flex-col justify-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:shadow-[0_20px_40px_rgb(59,130,246,0.08)] transition-all duration-500"
-          >
-            <div className="absolute inset-0 bg-brand/5 blur-[50px] animate-pulse opacity-50" />
-            
-            {/* Architectural decorative line */}
-            <div className="absolute top-0 right-12 w-px h-full bg-gradient-to-b from-transparent via-slate-200 to-transparent opacity-50" />
-            <div className="absolute top-12 right-0 w-full h-px bg-gradient-to-l from-transparent via-slate-200 to-transparent opacity-50" />
+        {/* Glowing Royal Blue Service Grid (Responsive: 2 mobile/tablet, 3 desktop) */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 md:gap-10 w-full max-w-6xl mx-auto">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={index}
+                onClick={() => setSelectedService(index)}
+                className="group cursor-pointer relative"
+              >
+                {/* Hover Glowing Border Background */}
+                <div className="absolute -inset-[1px] bg-blue-600/20 rounded-[2rem] sm:rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm" />
 
-            <h3 className="text-6xl md:text-8xl font-black text-slate-900 font-display tracking-tighter relative z-10 flex items-start drop-shadow-sm">
-              360<span className="text-brand text-4xl md:text-6xl mt-1.5 md:mt-2">º</span>
-            </h3>
-            <p className="text-brand font-bold uppercase tracking-[0.2em] text-sm md:text-lg mt-2 mb-1 relative z-10">Digital Solutions</p>
-            <div className="h-px w-24 md:w-32 bg-gradient-to-r from-brand to-transparent my-4 relative z-10 opacity-70" />
-            <p className="text-slate-500 text-xs md:text-sm uppercase tracking-widest font-semibold relative z-10">
-              Powered by <span className="text-brand font-bold">10P™</span>
-            </p>
-          </motion.div>
-
-          {/* Service Cards Standard Flow */}
-          {services.map((service, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              onClick={() => setSelectedService(i)}
-              className="bg-white/80 backdrop-blur-md border border-slate-200 hover:border-brand/30 rounded-[2rem] flex flex-col items-start text-left p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] w-full transition-all duration-300 hover:shadow-[0_15px_35px_rgba(59,130,246,0.08)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
-            >
-              {/* Subtle hover gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-brand/0 to-brand/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              <div className="flex items-center justify-between w-full mb-5 relative z-10">
-                <div className="flex flex-col items-start gap-4 w-full">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-50 group-hover:bg-brand/5 border border-slate-100 group-hover:border-brand/20 transition-colors rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
-                    <service.icon className="w-5 h-5 md:w-6 md:h-6 text-brand stroke-[2.5] opacity-80 group-hover:opacity-100 transition-opacity" />
+                {/* Card Container (Outline Blue) */}
+                <div className="relative h-full p-5 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] bg-white border-2 border-blue-700 flex flex-col items-center text-center overflow-hidden transition-all duration-500 group-hover:bg-blue-50/50 group-hover:shadow-[0_10px_30px_rgba(29,78,216,0.15)]">
+                  
+                  {/* Icon */}
+                  <div className="mb-4 sm:mb-10 relative">
+                    <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-xl sm:rounded-3xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                       <Icon className="w-8 h-8 sm:w-14 sm:h-14 text-blue-700 stroke-[1.5]" />
+                    </div>
                   </div>
-                  <h4 className="text-slate-900 text-base md:text-lg font-bold whitespace-pre-line leading-tight tracking-tight">
-                    {service.title}
-                  </h4>
+
+                  {/* Text Content */}
+                  <div className="space-y-2 sm:space-y-4 relative z-10">
+                    <h3 className="text-sm sm:text-2xl font-bold text-blue-700 leading-tight tracking-tight px-1 sm:px-2 group-hover:text-blue-800 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-slate-600 text-[10px] sm:text-base font-medium leading-relaxed max-w-[220px] mx-auto group-hover:text-slate-800 transition-colors">
+                      {service.subtitle}
+                    </p>
+                  </div>
                 </div>
               </div>
-              
-              <div className="w-full mt-1 flex-1 flex flex-col justify-between relative z-10">
-                <span className="text-slate-500 text-[13px] md:text-[14px] font-medium leading-[1.6] block mb-5">
-                  {service.description}
-                </span>
-                <span className="text-brand text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all flex items-center gap-1 mt-auto">
-                  Detalhes <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </span>
-              </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
-
       </div>
+
 
       {/* Service Details Modal */}
       <AnimatePresence>
@@ -202,10 +222,12 @@ export default function Marketing360Section() {
               </div>
 
               {/* Modal Body */}
-              <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar relative z-10 flex-1">
-                <p className="text-slate-600 text-base sm:text-[17px] leading-[1.7] whitespace-pre-line font-medium">
-                  {services[selectedService].details}
-                </p>
+              <div className="p-0 overflow-y-auto custom-scrollbar relative z-10 flex-1">
+                <div className="p-6 sm:p-8 pt-6">
+                  <p className="text-slate-600 text-base sm:text-[17px] leading-[1.7] whitespace-pre-line font-medium">
+                    {services[selectedService].details}
+                  </p>
+                </div>
               </div>
               
               {/* Decorative glows */}
