@@ -192,7 +192,9 @@ export default function App() {
           {/* Floating WhatsApp Button (Inside Hero now) */}
           <div className="absolute z-30 bottom-[48%] sm:bottom-[52%] md:bottom-[8%] lg:bottom-[10%] xl:bottom-[12%] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[5%] lg:left-[5%] xl:left-[8%] w-auto flex justify-center md:justify-start">
             <motion.a
-              href="#"
+              href="https://wa.me/559991863273?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os."
+              target="_blank"
+              rel="noopener noreferrer"
               animate={{ 
                 y: [0, -10, 0],
                 scale: [1, 1, 0.95, 1.05, 1, 1]
@@ -344,7 +346,7 @@ export default function App() {
               </div>
 
               <a 
-                href="https://wa.me/" 
+                href="https://wa.me/559991863273?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os." 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-wider flex items-center justify-center gap-3"
