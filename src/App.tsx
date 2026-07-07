@@ -3,6 +3,7 @@ import { motion, useScroll } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Loader2, CheckCircle2 } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 import Marketing360Section from './components/Marketing360Section';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -98,17 +99,18 @@ const CinematicHeroBackground = ({ src, hookSrc, isMobileImg }: { src: string, h
 export default function App() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isClient, setIsClient] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [state, handleSubmit] = useForm("mzdloevy");
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setTimeout(() => setIsSuccess(false), 3000);
-    }, 3000);
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // Dispara o evento de Lead do Meta Pixel
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead');
+    }
+
+    await handleSubmit(e);
+    if ((e.target as HTMLFormElement).reset) {
+        (e.target as HTMLFormElement).reset();
+    }
   };
 
   useEffect(() => {
@@ -195,6 +197,11 @@ export default function App() {
               href="https://wa.me/559991863273?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                if (typeof window !== 'undefined' && (window as any).fbq) {
+                  (window as any).fbq('track', 'Contact');
+                }
+              }}
               animate={{ 
                 y: [0, -10, 0],
                 scale: [1, 1, 0.95, 1.05, 1, 1]
@@ -303,33 +310,39 @@ export default function App() {
             <form onSubmit={handleFormSubmit} className="w-full max-w-md flex flex-col gap-4">
               <input 
                 type="text" 
+                name="name"
                 placeholder="Seu Nome" 
                 required
                 className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
               />
+              <ValidationError prefix="Name" field="name" errors={state.errors} />
               <input 
                 type="email" 
+                name="email"
                 placeholder="Seu E-mail" 
                 required
                 className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
               />
+              <ValidationError prefix="Email" field="email" errors={state.errors} />
               <input 
                 type="tel" 
+                name="phone"
                 placeholder="Seu Telefone / WhatsApp" 
                 required
                 className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-blue-200/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition-all backdrop-blur-md"
               />
+              <ValidationError prefix="Phone" field="phone" errors={state.errors} />
               <button 
                 type="submit"
-                disabled={isSubmitting || isSuccess}
+                disabled={state.submitting || state.succeeded}
                 className="mt-4 flex items-center justify-center gap-2 w-full bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-wider disabled:opacity-50 disabled:hover:translate-y-0"
               >
-                {isSubmitting ? (
+                {state.submitting ? (
                   <>
                     <Loader2 className="w-6 h-6 animate-spin" />
                     Enviando...
                   </>
-                ) : isSuccess ? (
+                ) : state.succeeded ? (
                   <>
                     <CheckCircle2 className="w-6 h-6 text-green-300" />
                     Formulário Enviado!
@@ -349,6 +362,11 @@ export default function App() {
                 href="https://wa.me/559991863273?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os." 
                 target="_blank" 
                 rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).fbq) {
+                    (window as any).fbq('track', 'Contact');
+                  }
+                }}
                 className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-wider flex items-center justify-center gap-3"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
