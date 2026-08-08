@@ -99,6 +99,7 @@ const CinematicHeroBackground = ({ src, hookSrc, isMobileImg }: { src: string, h
 export default function App() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isClient, setIsClient] = useState(false);
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
   const [state, handleSubmit] = useForm("mzdloevy");
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -128,10 +129,49 @@ export default function App() {
     };
     window.addEventListener('resize', handleResize);
 
+    // LGPD Cookie Check
+    const consent = localStorage.getItem('dinamize_cookie_consent');
+    if (!consent) {
+      setShowCookieBanner(true);
+    }
+
+    // Scroll Depth Tracking
+    const trackedDepths = new Set<number>();
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      
+      const scrollPercentage = (scrollTop + clientHeight) / scrollHeight * 100;
+      const thresholds = [25, 50, 75, 100];
+      
+      thresholds.forEach(threshold => {
+        // Use 99% for the 100% threshold to avoid rounding issues at the absolute bottom
+        const target = threshold === 100 ? 99 : threshold;
+        if (scrollPercentage >= target && !trackedDepths.has(threshold)) {
+          trackedDepths.add(threshold);
+          if (typeof window !== 'undefined' && (window as any).fbq) {
+            (window as any).fbq('trackCustom', 'ScrollDepth', { depth: `${threshold}%` });
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const acceptCookies = () => {
+    localStorage.setItem('dinamize_cookie_consent', 'true');
+    setShowCookieBanner(false);
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('trackCustom', 'AcceptCookies');
+    }
+  };
 
   const images = [
     "https://i.imgur.com/hp5FB7Z.png",
@@ -379,6 +419,25 @@ export default function App() {
         </section>
 
       </div>
+
+      {/* LGPD Cookie Banner */}
+      {showCookieBanner && (
+        <div className="fixed bottom-0 left-0 right-0 z-[100] bg-white border-t border-gray-200 p-4 sm:p-6 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-gray-700 text-sm sm:text-base flex-1">
+            <p>
+              Utilizamos cookies e tecnologias como o <strong>Meta Pixel</strong> para analisar o tráfego e otimizar campanhas, garantindo a melhor experiência para você.
+            </p>
+          </div>
+          <div className="flex-shrink-0 w-full sm:w-auto">
+            <button 
+              onClick={acceptCookies}
+              className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-colors whitespace-nowrap"
+            >
+              Entendi e Aceito
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

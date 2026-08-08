@@ -139,7 +139,12 @@ export default function Marketing360Section() {
             return (
               <div
                 key={index}
-                onClick={() => setSelectedService(index)}
+                onClick={() => {
+                  setSelectedService(index);
+                  if (typeof window !== 'undefined' && (window as any).fbq) {
+                    (window as any).fbq('trackCustom', 'ViewService', { service_name: service.title });
+                  }
+                }}
                 className="group cursor-pointer relative"
               >
                 {/* Hover Glowing Border Background */}
